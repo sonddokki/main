@@ -21,17 +21,14 @@ public class UserController {
 	@RequestMapping("loginForm")
 	public String loginForm() {
 		System.out.println("로그인폼");
-
 		return "user/loginForm";
 	}
 
 	@RequestMapping("login")
 	public String login(@ModelAttribute UserVo userVo, HttpSession session) {
 		System.out.println("로그인");
-
 		UserVo authUser = userDao.select(userVo);
 		session.setAttribute("authUser", authUser);
-
 		return "redirect:/main";
 	}
 
@@ -39,14 +36,17 @@ public class UserController {
 	@RequestMapping("joinForm")
 	public String joinForm() {
 		System.out.println("joinForm");
-		return "";
+		return "user/joinForm";
 	}
 
 	// joinOk
 	@RequestMapping("joinOk")
-	public String joinOk() {
+	public String joinOk(@ModelAttribute UserVo userVo) {		
 		System.out.println("joinOk");
-		return "";
+		userDao.userInsert(userVo);		
+		return "user/joinOk";
 	}
+	
+	
 
 }

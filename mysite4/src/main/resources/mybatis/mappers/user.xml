@@ -4,8 +4,9 @@
 <mapper namespace="user">
 
 	<!-- 쿼리문 작성 -->
-	
-	<select id="selectAuthUser" parameterType="com.javaex.vo.UserVo" resultType="com.javaex.vo.UserVo">
+
+	<select id="selectAuthUser" parameterType="com.javaex.vo.UserVo"
+		resultType="com.javaex.vo.UserVo">
 		<![CDATA[
 		SELECT  no 
 				,name
@@ -14,6 +15,19 @@
 		and password = #{password}
 		]]>
 	</select>
+
+	<insert id="insert" parameterType="com.javaex.vo.UserVo">  
+		 <![CDATA[
+	     INSERT INTO users
+	     VALUES (seq_users_no.nextval, 
+	             #{id},
+	             #{password},
+	             #{name},
+	             #{gender})
+		 ]]>
+	</insert>
+
+
 
 
 </mapper>

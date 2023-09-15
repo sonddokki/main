@@ -21,6 +21,12 @@ public class UserDao {
 	public UserVo select(UserVo userVo) {
 		return sqlSession.selectOne("user.selectAuthUser", userVo);				
 	}
+	
+	// (1) 회원등록
+		public void userInsert(UserVo userVo) {
+			System.out.println(userVo);
+			sqlSession.insert("user.insert", userVo);
+		}
 		
 	
 	// (3) 회원등록

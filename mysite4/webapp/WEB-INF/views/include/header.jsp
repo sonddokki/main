@@ -17,7 +17,7 @@
 	<c:if test="${empty authUser}">
 	<ul>
 		<li><a href="${pageContext.request.contextPath}/user/loginForm" class="btn_s">로그인</a></li>
-		<li><a href="${pageContext.request.contextPath}/user/joinFrom" class="btn_s">회원가입</a></li>
+		<li><a href="${pageContext.request.contextPath}/user/joinForm" class="btn_s">회원가입</a></li>
 	</ul>
 	</c:if>
 	
