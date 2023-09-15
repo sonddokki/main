@@ -3,7 +3,7 @@
 
 <div id="header" class="clearfix">
 	<h1>
-		<a href="/mysite/main">MySite</a>
+		<a href="${pageContext.request.contextPath}/main">MySite</a>
 	</h1>
 
 	<c:if test="${!(empty authUser)}">
@@ -16,7 +16,7 @@
 
 	<c:if test="${empty authUser}">
 	<ul>
-		<li><a href="/mysite/user/loginForm" class="btn_s">로그인</a></li>
+		<li><a href="${pageContext.request.contextPath}/user/loginForm" class="btn_s">로그인</a></li>
 		<li><a href="./user?action=joinFrom" class="btn_s">회원가입</a></li>
 	</ul>
 	</c:if>
