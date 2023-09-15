@@ -9,25 +9,20 @@ import com.javaex.vo.UserVo;
 @Repository
 public class UserDao {
 	
+	// 필드
 	@Autowired
 	private SqlSession sqlSession;
-	// 메소드 gs
-
+	
+	// 생성자, 메소드 gs
+	
 	// 메소드 일반
 	
-	public void select(UserVo userVo) {
-		
-		System.out.println("dao "+userVo);
-		
-		UserVo authUser = sqlSession.selectOne("user.selectAuthUser", userVo);
-				
-		System.out.println(authUser);
-		
+	// (1) 로그인용 1명 가져오기
+	public UserVo select(UserVo userVo) {
+		return sqlSession.selectOne("user.selectAuthUser", userVo);				
 	}
+		
 	
-	
-	
-
 	// (3) 회원등록
 //	public int userInsert(UserVo userVo) {
 //		int count = -1;

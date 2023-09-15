@@ -1,5 +1,7 @@
 package com.javaex.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,19 +18,34 @@ public class UserController {
 	@Autowired
 	UserDao userDao;
 
-	@RequestMapping("/loginForm")
+	@RequestMapping("loginForm")
 	public String loginForm() {
 		System.out.println("로그인폼");
 
 		return "user/loginForm";
 	}
 
-	@RequestMapping("/login")
-	public String login(@ModelAttribute UserVo userVo) {
+	@RequestMapping("login")
+	public String login(@ModelAttribute UserVo userVo, HttpSession session) {
 		System.out.println("로그인");
-				
-		userDao.select(userVo);
 
+		UserVo authUser = userDao.select(userVo);
+		session.setAttribute("authUser", authUser);
+
+		return "redirect:/main";
+	}
+
+	// joinForm
+	@RequestMapping("joinForm")
+	public String joinForm() {
+		System.out.println("joinForm");
+		return "";
+	}
+
+	// joinOk
+	@RequestMapping("joinOk")
+	public String joinOk() {
+		System.out.println("joinOk");
 		return "";
 	}
 
