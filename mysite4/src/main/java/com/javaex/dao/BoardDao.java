@@ -54,17 +54,14 @@ public class BoardDao {
 
 	// (7)게시판 검색
 	public List<BoardVo> boardSearch(String search) {
-		System.out.println("dao "+search);
 		List<BoardVo> boardList = sqlSession.selectList("board.searchBoard", search);
-		System.out.println("dao "+boardList);
 		return boardList;
 	}
 	
-	/*
-	public List<BoardVo> boardSelect() {
-
-		List<BoardVo> boardList;
-
+	
+	
+	/* 리스트 메소드와 검색 메소드 합쳐보기 ( xml 쿼리문에 if문 넣는 문법 찾아보기 )
+	 * 
 			String query = "";
 			query += " select  bo.no, ";
 			query += "         bo.title, ";
@@ -80,101 +77,14 @@ public class BoardDao {
 				query += " and bo.no = ? ";
 			}
 			
-			query += " ORDER BY bo.no desc ";
+			query += " ORDER BY bo.no desc ";		
 
-			pstmt = conn.prepareStatement(query);
-
-			// 바인딩**********************************************************************
 			if (!keyword.equals("")) { // keyword가 ""가 아니면 ==> keyword가 있으면 검색
 				int key = Integer.parseInt(keyword);
 				pstmt.setInt(1, key);
 			}
-
-			// 실행
-			rs = pstmt.executeQuery();
-
-			// 4.결과처리
-			while (rs.next()) {
-
-				int no = rs.getInt(1);
-				String title = rs.getString(2);
-				String content = rs.getString(3);
-				int hit = rs.getInt(4);
-				String regDate = rs.getString(5);
-				String name = rs.getString(6);
-				int userNo = rs.getInt(7);
-
-				BoardVo boardVo = new BoardVo(no, title, content, hit, regDate, name, userNo);
-
-				boardList.add(boardVo);
-			}
-
-		} catch (SQLException e) {
-			System.out.println("error:" + e);
-		}
-
-		this.close();
-
-		return boardList;
-
 	}	
 
-	// 게시판 검색
-	public List<BoardVo> boardSearch(String keyword) {
-
-		List<BoardVo> boardList = new ArrayList<BoardVo>();
-		System.out.println(keyword);
-
-		this.getConnect();
-
-		try {
-			// 3. SQL문 준비 / 바인딩 / 실행
-			// SQL문 준비
-			String query = "";
-			query += " select  bo.no, ";
-			query += "         bo.title, ";
-			query += "         bo.content, ";
-			query += "         bo.hit, ";
-			query += "         bo.reg_date, ";
-			query += "         us.name, ";
-			query += "         us.no ";
-			query += " FROM board bo, users us ";
-			query += " where bo.user_no = us.no ";
-			query += " and title like ? ";
-			query += " ORDER BY bo.no desc ";
-
-			pstmt = conn.prepareStatement(query);
-
-			pstmt.setString(1, "%" + keyword + "%");
-
-			// 실행
-			rs = pstmt.executeQuery();
-
-			// 4.결과처리
-			while (rs.next()) {
-
-				int no = rs.getInt(1);
-				String title = rs.getString(2);
-				String content = rs.getString(3);
-				int hit = rs.getInt(4);
-				String regDate = rs.getString(5);
-				String name = rs.getString(6);
-				int userNo = rs.getInt(7);
-
-				BoardVo boardVo = new BoardVo(no, title, content, hit, regDate, name, userNo);
-
-				boardList.add(boardVo);
-			}
-
-		} catch (SQLException e) {
-			System.out.println("error:" + e);
-		}
-
-		this.close();
-
-		return boardList;
-
-	}
 	*/
 
 }
