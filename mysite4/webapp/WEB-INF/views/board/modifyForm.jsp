@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="./assets/css/mysite.css" rel="stylesheet" type="text/css">
-<link href="./assets/css/board.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/assets/css/mysite.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/assets/css/board.css" rel="stylesheet" type="text/css">
 
 </head>
 
@@ -44,7 +45,7 @@
 
 				<div id="board">
 					<div id="modifyForm">
-						<form action="brc" method="get">
+						<form action="modify" method="get">
 							<!-- 작성자 -->
 							<div class="form-group">
 								<span class="form-text">작성자</span> <span class="form-value">${boardRead.name}</span>
@@ -70,12 +71,11 @@
 							<!-- 내용 -->
 							<div class="form-group">
 								<textarea id="txt-content" name="content">${boardRead.content}</textarea>
-							</div>
-							<input type="hidden" name="action" value="modify">							
+							</div>					
 							<input type="hidden" name="userNo" value="${authUser.no}">					
 							<input type="hidden" name="no" value="${boardRead.no}">
 							
-							<a id="btn_cancel" href="./brc?action=list">취소</a>
+							<a id="btn_cancel" href="${pageContext.request.contextPath}/brc/read?no=${boardRead.no}&hit=0">취소</a>
 							<button id="btn_modify" type="submit">수정</button>
 
 						</form>

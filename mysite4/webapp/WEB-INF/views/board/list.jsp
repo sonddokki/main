@@ -45,9 +45,8 @@
 	
 				<div id="board">
 					<div id="list">
-						<form action="brc" method="get">
+						<form action="search" method="get">
 							<div class="form-group text-right">
-								<input type="hidden" name="action" value="select">
 								<input type="text" name="search" value="">
 								<button type="submit" id=btn_search >검색</button>
 							</div>
@@ -68,12 +67,12 @@
 							<c:forEach items="${bList}" var="boardVo" varStatus="status">
 								<tr>
 									<td>${boardVo.no}</td>
-									<td class="text-left"><a href="./brc?action=read&no=${boardVo.no}&hit=hit">${boardVo.title}</a></td>
+									<td class="text-left"><a href="${pageContext.request.contextPath}/brc/read?no=${boardVo.no}&hit=1">${boardVo.title}</a></td>
 									<td>${boardVo.name}</td>
 									<td>${boardVo.hit}</td>
 									<td>${boardVo.regDate}</td>
 									<c:if test="${boardVo.userNo == authUser.no}" >
-									<td><a href="./brc?action=delete&userNo=${boardVo.userNo}&boardNo=${boardVo.no}">[삭제]</a></td>
+									<td><a href="${pageContext.request.contextPath}/brc/delete?userNo=${boardVo.userNo}&no=${boardVo.no}">[삭제]</a></td>
 									</c:if>							
 									
 								</tr>

@@ -73,9 +73,9 @@
 								</span>
 							</div>
 							<c:if test="${boardRead.userNo == authUser.no}" >
-							<a id="btn_modify" href="./brc?action=modifyForm&no=${boardRead.no}">수정</a> 
+							<a id="btn_modify" href="${pageContext.request.contextPath}/brc/modifyForm?no=${boardRead.no}">수정</a> 
 							</c:if>
-							<a id="btn_modify" href="./brc?action=list">목록</a>
+							<a id="btn_modify" href="${pageContext.request.contextPath}/brc/list">목록</a>
 
 						</form>
 						<!-- //form -->

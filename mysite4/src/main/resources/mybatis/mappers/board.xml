@@ -29,14 +29,77 @@
 	             ,#{userNo} )
 		 ]]>
 	</insert>
-
-	<delete id="listDelete" parameterType="com.javaex.vo.BoardVo">
+	
+	<select id="leadBoard" parameterType="int" resultType="com.javaex.vo.BoardVo">
 		<![CDATA[
-			delete from guestbook
-			where no = #{no}
-			and password = #{password}		
+			select  bo.no as no
+				    ,bo.title as title
+					,bo.content as content
+					,bo.hit as hit
+					,bo.reg_date as regDate
+					,us.name as name
+					,us.no as userNo
+			FROM board bo, users us
+			where bo.user_no = us.no
+			and bo.no = #{int}
+		]]>
+	</select>
+	
+	<update id="hitUp" parameterType="int"> 
+		<![CDATA[
+			UPDATE board
+			set hit = hit+1
+			where no = #{int}
+		]]>
+	</update>
+	
+	<update id="updateBoard" parameterType="com.javaex.vo.BoardVo"> 
+		<![CDATA[
+			UPDATE board
+			set title = #{title}
+			    ,content = #{content}
+			where user_no = #{userNo}
+			and no = #{no}
+		]]>
+	</update>
+	
+	<delete id="deleteBoard" parameterType="com.javaex.vo.BoardVo">
+		<![CDATA[
+			DELETE from board
+			where user_no = #{userNo}
+			and no = #{no}		
 		]]>
 	</delete>
+	
+	<select id="searchBoard"  parameterType="String" resultType="com.javaex.vo.BoardVo">
+		<![CDATA[
+			select  bo.no as no
+				    ,bo.title as title
+					,bo.content as content
+					,bo.hit as hit
+					,bo.reg_date as regDate
+					,us.name as name
+					,us.no as userNo
+			FROM board bo, users us
+			where bo.user_no = us.no
+			and title like '%'||#{title}||'%'
+			ORDER BY bo.no desc
+		]]>
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
 
 
 
