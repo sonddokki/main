@@ -43,7 +43,7 @@
 				<!-- //content-head -->
 	
 				<div id="guestbook">
-					<form action="gbc" method="get">
+					<form action="delete" method="get">
 						<table id="guestDelete">
 							<colgroup>
 								<col style="width: 10%;">
@@ -53,13 +53,12 @@
 							</colgroup>
 							<tr>
 								<td>비밀번호</td>
-								<td><input type="password" name="pw" value=""></td>
+								<td><input type="password" name="password" value=""></td>
 								<td class="text-left"><button type="submit">삭제</button></td>
-								<td><a href="./gbc?action=addList">[메인으로 돌아가기]</a></td>
+								<td><a href="${pageContext.request.contextPath}/gbc/addList">[메인으로 돌아가기]</a></td>
 							</tr>
 						</table>
 						<input type='hidden' name="no" value="${param.no}">
-						<input type='hidden' name="action" value="delete">
 					</form>
 					
 				</div>

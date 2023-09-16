@@ -21,19 +21,18 @@ public class GuestDao {
 
 	// (1) 방명록 리스트
 	public List<GuestVo> guestSelect() {
-		System.out.println("dao");
 		List<GuestVo> guestList = sqlSession.selectList("guest.selectGuest");
-		System.out.println(guestList);
 		return guestList;
-	}
-
-	
+	}	
 	
 	// (2) 방명록 등록
-	
-	
-	
+	public void listInsert(GuestVo guestVo) {
+		sqlSession.insert("guest.listInsert", guestVo);
+	}		
 	
 	// (3) 방명록 삭제
-	
+	public void listDelete(GuestVo guestVo) {
+		System.out.println("dao");
+		sqlSession.delete("guest.listDelete", guestVo);
+	}	
 }

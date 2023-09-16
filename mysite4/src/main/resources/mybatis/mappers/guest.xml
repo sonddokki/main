@@ -15,4 +15,25 @@
 		]]>
 	</select>
 
+	<insert id="listInsert" parameterType="com.javaex.vo.GuestVo">  
+		 <![CDATA[
+	     INSERT INTO guestbook 
+	     VALUES (seq_no.nextval
+	             ,#{name}
+	             ,#{password}
+	             ,#{content}
+	             ,SYSDATE )
+		 ]]>
+	</insert>
+
+	<delete id="listDelete" parameterType="com.javaex.vo.GuestVo">
+		<![CDATA[
+			delete from guestbook
+			where no = #{no}
+			and password = #{password}		
+		]]>
+	</delete>
+
+
+
 </mapper>

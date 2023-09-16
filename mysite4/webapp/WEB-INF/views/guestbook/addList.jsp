@@ -43,7 +43,7 @@
 				<!-- //content-head -->
 
 				<div id="guestbook">
-					<form action="gbc" method="get">
+					<form action="listInsert" method="get">
 						<table id="guestAdd">
 							<colgroup>
 								<col style="width: 70px;">
@@ -56,7 +56,7 @@
 									<th><label class="form-text" for="input-uname">이름</label></td>
 									<td><input id="input-uname" type="text" name="name" value=""></td>
 									<th><label class="form-text" for="input-pass">패스워드</label></td>
-									<td><input id="input-pass"type="password" name="pw" value=""></td>
+									<td><input id="input-pass"type="password" name="password" value=""></td>
 									<td><input type="hidden" name="action" value="listInsert"></td>
 								</tr>
 								<tr>
@@ -69,7 +69,6 @@
 							
 						</table>
 						<!-- //guestWrite -->
-						<input type="hidden" name="action" value="listInsert">
 						
 					</form>	
 					
@@ -85,7 +84,7 @@
 							<td>${guestVo.no}</td>
 							<td>${guestVo.name}</td>
 							<td>${guestVo.regDate}</td>
-							<td><a href="./gbc/deleteFrom&no=${guestVo.no}">[삭제]</a></td>
+							<td><a href="${pageContext.request.contextPath}/gbc/deleteForm?no=${guestVo.no}">[삭제]</a></td>
 						</tr>
 						<tr>
 							<td colspan=4 class="text-left">${guestVo.content}</td>
