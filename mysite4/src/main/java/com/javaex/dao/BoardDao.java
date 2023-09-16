@@ -47,8 +47,6 @@ public class BoardDao {
 
 	// (6) 게시판 삭제
 	public void boardDelete(BoardVo boardVo) {
-
-		System.out.println("dao" + boardVo);
 		sqlSession.delete("board.deleteBoard", boardVo);
 	}
 
@@ -59,6 +57,7 @@ public class BoardDao {
 	}
 	
 	
+	// 보드리스트 페이징 해보기
 	
 	/* 리스트 메소드와 검색 메소드 합쳐보기 ( xml 쿼리문에 if문 넣는 문법 찾아보기 )
 	 * 
