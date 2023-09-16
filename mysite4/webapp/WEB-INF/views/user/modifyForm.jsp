@@ -8,8 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="./assets/css/mysite.css" rel="stylesheet" type="text/css">
-<link href="./assets/css/user.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/assets/css/mysite.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/assets/css/user.css" rel="stylesheet" type="text/css">
 
 </head>
 
@@ -49,8 +49,7 @@
 
 				<div id="user">
 					<div id="modifyForm">
-						<form action="user" method="get">
-						<input type="hidden"  name="action" value="modify" >
+						<form action="modify" method="get">						
 						<input type="hidden"  name="id" value="${modifyUser.id}" >
 							<!-- 아이디 -->
 							<div class="form-group">
@@ -59,7 +58,7 @@
 
 							<!-- 비밀번호 -->
 							<div class="form-group">
-								<label class="form-text" for="input-pass">패스워드</label> <input type="text" id="input-pass" name="pw" value="${modifyUser.password}" placeholder="비밀번호를 입력하세요">
+								<label class="form-text" for="input-pass">패스워드</label> <input type="text" id="input-pass" name="password" value="${modifyUser.password}" placeholder="비밀번호를 입력하세요">
 							</div>
 
 							<!-- 이메일 -->
@@ -92,7 +91,7 @@
 
 							<!-- 버튼영역 -->
 							<div class="button-area">
-								<button type="submit" id="btn-submit">회원정보수정</button>
+								<button href="${pageContext.request.contextPath}/user/modify" type="submit" id="btn-submit">회원정보수정</button>
 							</div>
 
 						</form>
