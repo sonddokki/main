@@ -18,14 +18,15 @@
 		]]>
 	</select>
 
-	<insert id="listInsert" parameterType="com.javaex.vo.BoardVo">  
+	<insert id="insertBoard" parameterType="com.javaex.vo.BoardVo">  
 		 <![CDATA[
-	     INSERT INTO guestbook 
-	     VALUES (seq_no.nextval
-	             ,#{name}
-	             ,#{password}
+	     INSERT INTO board 
+	     VALUES (seq_board_no.nextval
+	             ,#{title}
 	             ,#{content}
-	             ,SYSDATE )
+	             , 0
+	             ,SYSDATE
+	             ,#{userNo} )
 		 ]]>
 	</insert>
 

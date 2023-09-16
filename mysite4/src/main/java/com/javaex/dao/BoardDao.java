@@ -25,6 +25,11 @@ public class BoardDao {
 		return boardList;
 	}
 	
+	// (2) 게시판 등록
+	public void boardInsert(BoardVo boardVo) {
+		System.out.println("dao insert");
+		sqlSession.insert("board.insertBoard", boardVo );
+	}
 	
 	
 	/*
