@@ -85,7 +85,7 @@
 							<td>${guestVo.no}</td>
 							<td>${guestVo.name}</td>
 							<td>${guestVo.regDate}</td>
-							<td><a href="./gbc?action=deleteFrom&no=${guestVo.no}">[삭제]</a></td>
+							<td><a href="./gbc/deleteFrom&no=${guestVo.no}">[삭제]</a></td>
 						</tr>
 						<tr>
 							<td colspan=4 class="text-left">${guestVo.content}</td>
