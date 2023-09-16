@@ -32,7 +32,6 @@ public class GuestDao {
 	
 	// (3) 방명록 삭제
 	public void listDelete(GuestVo guestVo) {
-		System.out.println("dao");
 		sqlSession.delete("guest.listDelete", guestVo);
 	}	
 }

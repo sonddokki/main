@@ -25,7 +25,6 @@ public class GuestBookController {
 	public String addList(Model model){
 		System.out.println("방명록리스트");
 		List<GuestVo> guestList = guestDao.guestSelect();
-		System.out.println(guestList);
 		model.addAttribute("gList", guestList);		
 		return "guestbook/addList";
 	}	
@@ -46,7 +45,6 @@ public class GuestBookController {
 	@RequestMapping(value = "/delete", method = { RequestMethod.GET, RequestMethod.POST })
 	public String delete(@ModelAttribute GuestVo guestVo){
 		System.out.println("방명록삭제");	
-		System.out.println(guestVo);
 		guestDao.listDelete(guestVo);		
 		return "redirect:addList";
 	}	
