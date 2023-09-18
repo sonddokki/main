@@ -32,6 +32,7 @@ public class BoardService {
 	}
 
 	// 게시판 댓글 등록
+	
 	public void rboardInsert(BoardVo boardVo) {
 
 	}
