@@ -14,13 +14,14 @@ public class BoardDao {
 	// 필드
 	@Autowired
 	private SqlSession sqlSession;
-
+	
 	// 생성자, 메소드 gs
 
 	// 메소드 일반
 
 	// (1) 게시판 리스트
 	public List<BoardVo> boardSelect() {
+		System.out.println("dao");
 		List<BoardVo> boardList = sqlSession.selectList("board.selectBoard");
 		return boardList;
 	}

@@ -13,19 +13,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.javaex.dao.BoardDao;
+import com.javaex.service.BoardService;
 import com.javaex.vo.BoardVo;
 import com.javaex.vo.UserVo;
 
 @Controller
 @RequestMapping("/brc")
 public class BoardController {
-
+	
 	@Autowired
-	BoardDao boardDao;
-
+	private BoardDao boardDao;
+	
 	@RequestMapping(value = "/list", method = { RequestMethod.GET, RequestMethod.POST })
 	public String addList(Model model) {
-		System.out.println("게시판 리스트");
+		System.out.println("게시판 리스트");	
 		List<BoardVo> bList = boardDao.boardSelect();
 		model.addAttribute("bList", bList);
 		return "board/list";
