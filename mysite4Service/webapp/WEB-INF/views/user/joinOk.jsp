@@ -1,20 +1,23 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-    
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="${pageContext.request.contextPath}/assets/css/mysite.css" rel="stylesheet" type="text/css">
-<link href="${pageContext.request.contextPath}/assets/css/user.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/assets/css/mysite.css"
+	rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/assets/css/user.css"
+	rel="stylesheet" type="text/css">
 
 </head>
 
 <body>
 	<div id="wrap">
 
-	  <!-- header -->
+		<!-- header -->
 		<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 
 		<div id="container" class="clearfix">
@@ -29,7 +32,7 @@
 			<!-- //aside -->
 
 			<div id="content">
-			
+
 				<div id="content-head">
 					<h3>회원가입</h3>
 					<div id="location">
@@ -42,16 +45,15 @@
 					<div class="clear"></div>
 				</div>
 				<!-- //content-head -->
-	
+
 				<div id="user">
 					<div id="joinOK">
-					
+
 						<p class="text-large bold">
-							회원가입을 축하합니다.<br>
-							<br>
-							<a href="${pageContext.request.contextPath}/user/loginForm" >[로그인하기]</a>
+							회원가입을 축하합니다.<br> <br> <a
+								href="${pageContext.request.contextPath}/user/loginForm">[로그인하기]</a>
 						</p>
-							
+
 					</div>
 					<!-- //joinOK -->
 				</div>

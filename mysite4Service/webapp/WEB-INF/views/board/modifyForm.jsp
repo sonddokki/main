@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
@@ -6,8 +7,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="${pageContext.request.contextPath}/assets/css/mysite.css" rel="stylesheet" type="text/css">
-<link href="${pageContext.request.contextPath}/assets/css/board.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/assets/css/mysite.css"
+	rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/assets/css/board.css"
+	rel="stylesheet" type="text/css">
 
 </head>
 
@@ -15,7 +18,7 @@
 <body>
 	<div id="wrap">
 
-		 <!-- header&nav -->
+		<!-- header&nav -->
 		<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 
 		<div id="container" class="clearfix">
@@ -63,7 +66,9 @@
 
 							<!-- 제목 -->
 							<div class="form-group">
-								<label class="form-text" for="txt-title">제목</label> <input type="text" id="txt-title" name="title" value="${boardRead.title}">
+								<label class="form-text" for="txt-title">제목</label> <input
+									type="text" id="txt-title" name="title"
+									value="${boardRead.title}">
 							</div>
 
 
@@ -71,11 +76,11 @@
 							<!-- 내용 -->
 							<div class="form-group">
 								<textarea id="txt-content" name="content">${boardRead.content}</textarea>
-							</div>					
-							<input type="hidden" name="userNo" value="${authUser.no}">					
-							<input type="hidden" name="no" value="${boardRead.no}">
-							
-							<a id="btn_cancel" href="${pageContext.request.contextPath}/brc/read?no=${boardRead.no}&hit=0">취소</a>
+							</div>
+							<input type="hidden" name="userNo" value="${authUser.no}">
+							<input type="hidden" name="no" value="${boardRead.no}"> <a
+								id="btn_cancel"
+								href="${pageContext.request.contextPath}/brc/read?no=${boardRead.no}&hit=0">취소</a>
 							<button id="btn_modify" type="submit">수정</button>
 
 						</form>

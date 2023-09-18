@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.javaex.service.BoardService;
 import com.javaex.vo.BoardVo;
+import com.javaex.vo.UserVo;
 
 @Controller
 @RequestMapping("/brc")
@@ -53,8 +54,11 @@ public class BoardController {
 	// 게시판 글 등록
 	@RequestMapping(value = "/boardInsert", method = { RequestMethod.GET, RequestMethod.POST })
 	public String boardInsert(@ModelAttribute BoardVo boardVo, HttpSession session) {
-		System.out.println("/boardInsert");
+		System.out.println("게시판에 글등록");
 		
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		boardVo.setUserNo(authUser.getNo());
+		System.out.println(boardVo);	
 		
 		if(boardVo.getGroupNo() == 0) {
 			System.out.println("글등록실행");

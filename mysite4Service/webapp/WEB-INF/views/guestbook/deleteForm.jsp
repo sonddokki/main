@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
@@ -6,15 +7,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="${pageContext.request.contextPath}/assets/css/mysite.css" rel="stylesheet" type="text/css">
-<link href="${pageContext.request.contextPath}/assets/css/guestbook.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/assets/css/mysite.css"
+	rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/assets/css/guestbook.css"
+	rel="stylesheet" type="text/css">
 
 </head>
 
 <body>
 	<div id="wrap">
 
-		 <!-- header&nav -->
+		<!-- header&nav -->
 		<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 
 		<div id="container" class="clearfix">
@@ -28,7 +31,7 @@
 			<!-- //aside -->
 
 			<div id="content">
-			
+
 				<div id="content-head">
 					<h3>일반방명록</h3>
 					<div id="location">
@@ -41,7 +44,7 @@
 					<div class="clear"></div>
 				</div>
 				<!-- //content-head -->
-	
+
 				<div id="guestbook">
 					<form action="delete" method="get">
 						<table id="guestDelete">
@@ -55,12 +58,14 @@
 								<td>비밀번호</td>
 								<td><input type="password" name="password" value=""></td>
 								<td class="text-left"><button type="submit">삭제</button></td>
-								<td><a href="${pageContext.request.contextPath}/gbc/addList">[메인으로 돌아가기]</a></td>
+								<td><a
+									href="${pageContext.request.contextPath}/gbc/addList">[메인으로
+										돌아가기]</a></td>
 							</tr>
 						</table>
 						<input type='hidden' name="no" value="${param.no}">
 					</form>
-					
+
 				</div>
 				<!-- //guestbook -->
 			</div>
@@ -68,7 +73,7 @@
 
 		</div>
 		<!-- //container  -->
-		
+
 		<!-- //footer -->
 		<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 

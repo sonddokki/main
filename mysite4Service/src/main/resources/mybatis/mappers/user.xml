@@ -26,9 +26,9 @@
 	             #{gender})
 		 ]]>
 	</insert>
-	
-	<select id="selectModifyUser" parameterType="com.javaex.vo.UserVo"
-		resultType="com.javaex.vo.UserVo">
+
+	<select id="selectModifyUser"
+		parameterType="com.javaex.vo.UserVo" resultType="com.javaex.vo.UserVo">
 		<![CDATA[
 		SELECT  id 
 				,password
@@ -40,7 +40,7 @@
 		]]>
 	</select>
 
-	<update id="updateUser"  parameterType="com.javaex.vo.UserVo" > 
+	<update id="updateUser" parameterType="com.javaex.vo.UserVo"> 
 		<![CDATA[
 			UPDATE users
 			set password = #{password}
