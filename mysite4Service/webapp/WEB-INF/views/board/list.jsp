@@ -70,11 +70,11 @@
 									<td class="text-left"><a href="${pageContext.request.contextPath}/brc/read?no=${boardVo.no}&hit=1">${boardVo.title}</a></td>
 									<td>${boardVo.name}</td>
 									<td>${boardVo.hit}</td>
-									<td>${boardVo.regDate}</td>
+									<td>${boardVo.regDate}</td>									
+									
 									<c:if test="${boardVo.userNo == authUser.no}" >
 									<td><a href="${pageContext.request.contextPath}/brc/delete?userNo=${boardVo.userNo}&no=${boardVo.no}">[삭제]</a></td>
-									</c:if>							
-									
+									</c:if>											
 								</tr>
 							</c:forEach>
 							</tbody>

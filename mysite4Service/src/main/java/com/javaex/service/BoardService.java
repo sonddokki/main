@@ -23,7 +23,17 @@ public class BoardService {
 	// 게시판 읽기 (조회수 상승)
 	public BoardVo boardRead(int no) {
 		boardDao.hitUp(no);
-		return boardDao.boardRead(no);		
+		return boardDao.boardRead(no);
+	}
+
+	// 게시판 글 등록
+	public void boardInsert(BoardVo boardVo) {
+
+	}
+
+	// 게시판 댓글 등록
+	public void rboardInsert(BoardVo boardVo) {
+
 	}
 
 }

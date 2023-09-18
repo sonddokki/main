@@ -46,7 +46,7 @@
 
 				<div id="board">
 					<div id="read">
-						<form action="brc" method="get" >
+						<form action="brc" method="get">
 							<!-- 작성자 -->
 							<div class="form-group">
 								<span class="form-text">작성자</span> <span class="form-value">${boardRead.name}</span>
@@ -67,15 +67,24 @@
 								<span class="form-text">제 목</span> <span class="form-value">${boardRead.title}</span>
 							</div>
 
+							<td><input style="width: 20px; height: 20px" type="text" id="txt-title" name="groupNo" value="${boardRead.groupNo}"></td>
+							<td><input style="width: 20px; height: 20px" type="text" id="txt-title" name="orderNo" value="${boardRead.orderNo}"></td>
+							<td><input style="width: 20px; height: 20px" type="text" id="txt-title" name="depth" value="${boardRead.depth}"></td>
+
 							<!-- 내용 -->
 							<div id="txt-content">
-								<span class="form-value"> ${boardRead.content}
-								</span>
+								<span class="form-value"> ${boardRead.content} </span>
 							</div>
-							<c:if test="${boardRead.userNo == authUser.no}" >
-							<a id="btn_modify" href="${pageContext.request.contextPath}/brc/modifyForm?no=${boardRead.no}">수정</a> 
-							</c:if>
+
 							<a id="btn_modify" href="${pageContext.request.contextPath}/brc/list">목록</a>
+
+							<c:if test="${!(empty authUser)}">
+								<a id="btn_modify" href="${pageContext.request.contextPath}/brc/writeForm?no=${boardRead.no}">댓글</a>
+							</c:if>
+
+							<c:if test="${boardRead.userNo == authUser.no}">
+								<a id="btn_modify" href="${pageContext.request.contextPath}/brc/modifyForm?no=${boardRead.no}">수정</a>
+							</c:if>
 
 						</form>
 						<!-- //form -->
@@ -89,7 +98,7 @@
 		</div>
 		<!-- //container  -->
 
-	<!-- //footer -->
+		<!-- //footer -->
 		<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 
 	</div>
