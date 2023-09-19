@@ -88,8 +88,8 @@
 						<div id="paging">
 							<ul>
 								<li><a href="">◀</a></li>
-								<li class="active"><a href="">1</a></li>
-								<li><a href="">2</a></li>
+								<li class="active"><a href="${pageContext.request.contextPath}/rbrc/list?page=1">1</a></li>
+								<li><a href="${pageContext.request.contextPath}/rbrc/list?page=2">2</a></li>
 								<li><a href="">3</a></li>
 								<li><a href="">4</a></li>
 								<li><a href="">5</a></li>

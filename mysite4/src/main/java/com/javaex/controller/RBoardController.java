@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.javaex.service.RBoardService;
 import com.javaex.vo.BoardVo;
+import com.javaex.vo.Paging;
 import com.javaex.vo.UserVo;
 
 @Controller
@@ -26,23 +27,26 @@ public class RBoardController {
 	@Autowired
 	private RBoardService boardService;
 
-	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/list", method = { RequestMethod.GET, RequestMethod.POST })
 	public String addList(@RequestParam(value="keword", required=false, defaultValue="") String keword
-						 ,@RequestParam(value="page", required=false, defaultValue="0") int page
+						 ,@RequestParam(value="page", required=false, defaultValue="1") int page
 					     ,Model model) {
 		System.out.println("게시판 리스트");
+		
 		List<BoardVo> boardList = boardService.boardList(keword);
-		int totla = boardList.size();
-		List<BoardVo> titlaList;		
+		Paging paging = new Paging();
 		
-		if(page == 0)
 		
-		for(int i=0;i<boardList.size();i++) {
-			titlaList = (List<BoardVo>) boardList.get(i);
-		}
-						
-		System.out.println(totla);
+//		int totla = boardList.size();
+//		List<BoardVo> titlaList;		
+//		
+//		
+//		
+//		for(int i=0;i<boardList.size();i++) {
+//			titlaList = (List<BoardVo>) boardList.get(i);
+//		}
+//						
+//		System.out.println(totla);
 		
 		model.addAttribute("bList", boardList);
 		return "rboard/list";
