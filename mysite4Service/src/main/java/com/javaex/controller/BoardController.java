@@ -30,6 +30,8 @@ public class BoardController {
 	public String addList(Model model) {
 		System.out.println("게시판 리스트");
 		List<BoardVo> boardList = boardService.getBoardList();
+
+		System.out.println(boardList);
 		model.addAttribute("bList", boardList);
 		return "board/list";
 	}
@@ -65,14 +67,13 @@ public class BoardController {
 			// 기본글등록실행
 			boardService.boardInsert(boardVo);
 			System.out.println();
-			return null;
-			// return "redirect:list";
+			return "redirect:list";
 		}
 		// 댓글등록실행
 		System.out.println("댓글등록실행");
+		System.out.println(boardVo);
 		boardService.rboardInsert(boardVo);
-		return null;
-		// return "redirect:list";
+		return "redirect:list";
 	}
 
 //	@RequestMapping(value = "/boardInsert", method = { RequestMethod.GET, RequestMethod.POST })

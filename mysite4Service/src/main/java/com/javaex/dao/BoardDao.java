@@ -23,6 +23,7 @@ public class BoardDao {
 	public List<BoardVo> boardSelect() {
 		System.out.println("dao");
 		List<BoardVo> boardList = sqlSession.selectList("rboard.selectBoard");
+		System.out.println(boardList);
 		return boardList;
 	}
 
@@ -43,8 +44,17 @@ public class BoardDao {
 
 	// (4-2) 계층형 게시판 댓글 등록
 	public void rboardInsert(BoardVo boardVo) {
+		System.out.println("dao");
 		sqlSession.insert("rboard.insertRboard", boardVo);
 	}
+	
+	// (4-3) 계층형 게시판 댓글 등록시 처리
+	public void rboardUpdate(BoardVo boardVo) {
+		sqlSession.insert("rboard.updateRboard", boardVo);
+	}
+	
+	
+	
 
 	// (5) 게시판 글 수정
 	public void boardUpdate(BoardVo boardVo) {

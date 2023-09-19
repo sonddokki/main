@@ -34,8 +34,9 @@ public class BoardService {
 	// 게시판 댓글 등록
 	
 	public void rboardInsert(BoardVo boardVo) {
-		System.out.println("dao");
+		System.out.println("서비스에서 등록시 "+boardVo);
 		boardDao.rboardInsert(boardVo);
+		boardDao.rboardUpdate(boardVo);
 	}
 
 }

@@ -6,7 +6,7 @@
 	<select id="selectBoard" resultType="com.javaex.vo.BoardVo">
 		<![CDATA[
 			select  bo.no as no
-				    ,bo.title as title
+				    ,LPAD('↳',bo.depth,'  ')|| bo.title as title
 					,bo.content as content
 					,bo.hit as hit
 					,bo.reg_date as regDate
@@ -14,7 +14,8 @@
 					,us.no as userNo
 			FROM rboard bo, users us
 			where bo.user_no = us.no
-			ORDER BY bo.groupNo desc
+			ORDER BY bo.group_no desc
+                    ,bo.order_no asc
 		]]>
 	</select>
 
@@ -70,12 +71,19 @@
 	             ,SYSDATE
 	             ,#{userNo} 
 	             ,#{groupNo} 
-	             ,#{orderNo}
-	             ,#{depth} )
+	             ,#{orderNo}+1
+	             ,#{depth}+1 )
 		 ]]>
 	</insert>
 	
-	
+	<update id="updateRboard" parameterType="com.javaex.vo.BoardVo"> 
+		<![CDATA[
+			UPDATE rboard
+			set order_no = #{orderNo}+1
+			where group_no = #{groupNo} 
+			and order_no > 1
+		]]>
+	</update>
 	
 	
 	
