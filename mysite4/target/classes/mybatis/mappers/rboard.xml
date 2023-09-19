@@ -106,9 +106,12 @@
 	<!-- 글 삭제 (이 글만 삭제하고 삭제된 게시물입니다라고 변경 사실상 업데이트 개념)  -->
 	<delete id="deleteBoard" parameterType="com.javaex.vo.BoardVo">
 		<![CDATA[
-			DELETE from rboard
+			UPDATE rboard
+			set title = '삭제된 게시물 입니다.'
+			    ,content = '내용없음'
+			    
 			where user_no = #{userNo}
-			and group_no = #{no}		
+			and no = #{no}	
 		]]>
 	</delete>
 	
@@ -117,7 +120,7 @@
 		<![CDATA[
 			DELETE from rboard
 			where user_no = #{userNo}
-			and group_no = #{no}		
+			and no = #{no}
 		]]>
 	</delete>	
 

@@ -78,7 +78,7 @@
 
 										<c:if test="${boardVo.userNo == authUser.no}">
 											<td><a
-												href="${pageContext.request.contextPath}/rbrc/delete?userNo=${boardVo.userNo}&no=${boardVo.no}">[삭제]</a></td>
+												href="${pageContext.request.contextPath}/rbrc/delete?userNo=${boardVo.userNo}&no=${boardVo.no}&groupNo=${boardVo.groupNo}&orderNo=${boardVo.orderNo}&depth=${boardVo.depth}">[삭제]</a></td>
 										</c:if>
 									</tr>
 								</c:forEach>
