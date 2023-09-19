@@ -6,18 +6,21 @@
 	<!-- 리스트 가져오기  -->
 	<select id="boardSelect" parameterType="String" resultType="com.javaex.vo.BoardVo">
 		<![CDATA[
-			select  bo.no as no
-				    ,LPAD(' ',bo.depth+1,'↳')|| bo.title as title
-					,bo.content as content
-					,bo.hit as hit
-					,bo.reg_date as regDate
-					,us.name as name
-					,us.no as userNo
-			FROM rboard bo, users us
-			where bo.user_no = us.no
-			and bo.title LIKE '%'||#{keyword}||'%'
-			ORDER BY bo.group_no desc
-                    ,bo.order_no asc
+            SELECT rn2.*
+			FROM (SELECT rn.*, ROWNUM rown
+			      FROM  (select  bo.no as no
+			            ,LPAD(' ',bo.depth+1,'↳')|| bo.title as title
+			            ,bo.content as content
+			            ,bo.hit as hit
+			            ,bo.reg_date as regDate
+			            ,us.name as name
+			            ,us.no as userNo
+			     FROM rboard bo, users us
+			     where bo.user_no = us.no
+			     and bo.title LIKE '%'||#{keyword}||'%'
+			     ORDER BY bo.group_no desc
+			             ,bo.order_no asc) rn) rn2
+			WHERE rown BETWEEN 1 AND 6
 			]]>
 	</select>
 
