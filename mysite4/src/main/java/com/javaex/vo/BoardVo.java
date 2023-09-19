@@ -1,5 +1,7 @@
 package com.javaex.vo;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 // rboard로 수정
 public class BoardVo {
 

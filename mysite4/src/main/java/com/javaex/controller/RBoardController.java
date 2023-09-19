@@ -26,12 +26,24 @@ public class RBoardController {
 	@Autowired
 	private RBoardService boardService;
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/list", method = { RequestMethod.GET, RequestMethod.POST })
-	public String addList(@RequestParam(value="keword", required=false, defaultValue="")String keword, Model model) {
+	public String addList(@RequestParam(value="keword", required=false, defaultValue="") String keword
+						 ,@RequestParam(value="page", required=false, defaultValue="0") int page
+					     ,Model model) {
 		System.out.println("게시판 리스트");
 		List<BoardVo> boardList = boardService.boardList(keword);
-
-		System.out.println(boardList);
+		int totla = boardList.size();
+		List<BoardVo> titlaList;		
+		
+		if(page == 0)
+		
+		for(int i=0;i<boardList.size();i++) {
+			titlaList = (List<BoardVo>) boardList.get(i);
+		}
+						
+		System.out.println(totla);
+		
 		model.addAttribute("bList", boardList);
 		return "rboard/list";
 	}
