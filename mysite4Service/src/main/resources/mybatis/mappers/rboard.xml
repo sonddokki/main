@@ -14,7 +14,7 @@
 					,us.no as userNo
 			FROM rboard bo, users us
 			where bo.user_no = us.no
-			ORDER BY bo.no desc
+			ORDER BY bo.groupNo desc
 		]]>
 	</select>
 
@@ -60,7 +60,20 @@
 		 ]]>
 	</insert>
 	
-	
+	<insert id="insertRboard" parameterType="com.javaex.vo.BoardVo">  
+		 <![CDATA[
+	     INSERT INTO rboard 
+	     VALUES ( seq_board_no.nextval
+	             ,#{title}
+	             ,#{content}
+	             , 0
+	             ,SYSDATE
+	             ,#{userNo} 
+	             ,#{groupNo} 
+	             ,#{orderNo}
+	             ,#{depth} )
+		 ]]>
+	</insert>
 	
 	
 	
