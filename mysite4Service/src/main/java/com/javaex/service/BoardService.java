@@ -28,7 +28,8 @@ public class BoardService {
 
 	// 게시판 글 등록
 	public void boardInsert(BoardVo boardVo) {
-
+		System.out.println("dao");
+		boardDao.boardInsert(boardVo);
 	}
 
 	// 게시판 댓글 등록

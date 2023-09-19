@@ -63,13 +63,14 @@ public class BoardController {
 		if(boardVo.getGroupNo() == 0) {
 			System.out.println("글등록실행");
 			// 기본글등록실행
-			
+			boardService.boardInsert(boardVo);
+			System.out.println();
 			return null;
 			// return "redirect:list";
 		}
 		// 댓글등록실행
 		System.out.println("댓글등록실행");
-		
+		boardService.rboardInsert(boardVo);
 		return null;
 		// return "redirect:list";
 	}

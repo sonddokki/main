@@ -36,18 +36,15 @@ public class BoardDao {
 		sqlSession.update("rboard.hitUp", no);
 	}
 
-	// (4) 계층형 게시판 글 등록
+	// (4-1) 계층형 게시판 글 등록
 	public void boardInsert(BoardVo boardVo) {
 		sqlSession.insert("rboard.insertBoard", boardVo);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
+	// (4-2) 계층형 게시판 댓글 등록
+	public void rboardInsert(BoardVo boardVo) {
+		sqlSession.insert("rboard.insertRboard", boardVo);
+	}
 
 	// (5) 게시판 글 수정
 	public void boardUpdate(BoardVo boardVo) {
