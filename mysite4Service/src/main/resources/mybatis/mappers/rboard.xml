@@ -3,10 +3,11 @@
 
 <mapper namespace="rboard">
 
-	<select id="selectBoard" resultType="com.javaex.vo.BoardVo">
+	<!-- 리스트 가져오기  -->
+	<select id="selectBoard" parameterType="String" resultType="com.javaex.vo.BoardVo">
 		<![CDATA[
 			select  bo.no as no
-				    ,LPAD('↳',bo.depth,'  ')|| bo.title as title
+				    ,LPAD(' ',bo.depth+1,'↳')|| bo.title as title
 					,bo.content as content
 					,bo.hit as hit
 					,bo.reg_date as regDate
@@ -14,11 +15,13 @@
 					,us.no as userNo
 			FROM rboard bo, users us
 			where bo.user_no = us.no
+			and bo.title LIKE '%'||#{keyword}||'%'
 			ORDER BY bo.group_no desc
                     ,bo.order_no asc
-		]]>
+			]]>
 	</select>
 
+	<!-- 글 하나 가져오기  -->
 	<select id="leadBoard" parameterType="int"
 		resultType="com.javaex.vo.BoardVo">
 		<![CDATA[
@@ -38,6 +41,7 @@
 		]]>
 	</select>
 
+	<!-- 조회수 상승  -->
 	<update id="hitUp" parameterType="int"> 
 		<![CDATA[
 			UPDATE rboard
@@ -46,6 +50,7 @@
 		]]>
 	</update>
 
+	<!-- 글 등록  -->
 	<insert id="insertBoard" parameterType="com.javaex.vo.BoardVo">  
 		 <![CDATA[
 	     INSERT INTO rboard 
@@ -61,6 +66,7 @@
 		 ]]>
 	</insert>
 	
+	<!-- 댓글 등록  -->
 	<insert id="insertRboard" parameterType="com.javaex.vo.BoardVo">  
 		 <![CDATA[
 	     INSERT INTO rboard 
@@ -76,52 +82,43 @@
 		 ]]>
 	</insert>
 	
+	<!-- 그룹의 다른 댓글들 순서 조정  -->
 	<update id="updateRboard" parameterType="com.javaex.vo.BoardVo"> 
 		<![CDATA[
 			UPDATE rboard
-			set order_no = #{orderNo}+1
+			set order_no = order_no+1
 			where group_no = #{groupNo} 
-			and order_no > 1
+			and order_no > #{orderNo} 
 		]]>
 	</update>
-	
-	
-	
-	
-
+		
+	<!-- 수정  -->
 	<update id="updateBoard" parameterType="com.javaex.vo.BoardVo"> 
 		<![CDATA[
-			UPDATE board
+			UPDATE rboard
 			set title = #{title}
 			    ,content = #{content}
 			where user_no = #{userNo}
 			and no = #{no}
 		]]>
 	</update>
-
+	
+	<!-- 글 삭제 (이 글만 삭제하고 삭제된 게시물입니다라고 변경 사실상 업데이트 개념)  -->
 	<delete id="deleteBoard" parameterType="com.javaex.vo.BoardVo">
 		<![CDATA[
-			DELETE from board
+			DELETE from rboard
 			where user_no = #{userNo}
-			and no = #{no}		
+			and group_no = #{no}		
 		]]>
 	</delete>
-
-	<select id="searchBoard" parameterType="String"
-		resultType="com.javaex.vo.BoardVo">
+	
+	<!-- 글 삭제 (이 그룹 전체 삭제)  -->
+	<delete id="deleteBoard2" parameterType="com.javaex.vo.BoardVo">
 		<![CDATA[
-			select  bo.no as no
-				    ,bo.title as title
-					,bo.content as content
-					,bo.hit as hit
-					,bo.reg_date as regDate
-					,us.name as name
-					,us.no as userNo
-			FROM board bo, users us
-			where bo.user_no = us.no
-			and title like '%'||#{title}||'%'
-			ORDER BY bo.no desc
+			DELETE from rboard
+			where user_no = #{userNo}
+			and group_no = #{no}		
 		]]>
-	</select>
+	</delete>	
 
 </mapper>

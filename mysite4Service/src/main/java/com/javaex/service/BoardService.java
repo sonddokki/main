@@ -14,9 +14,9 @@ public class BoardService {
 	@Autowired
 	private BoardDao boardDao;
 
-	public List<BoardVo> getBoardList() {
+	public List<BoardVo> getBoardList(String keword) {
 		System.out.println("@Service");
-		List<BoardVo> boardList = boardDao.boardSelect();
+		List<BoardVo> boardList = boardDao.boardSelect(keword);
 		return boardList;
 	}
 
@@ -31,12 +31,23 @@ public class BoardService {
 		boardDao.boardInsert(boardVo);
 	}	
 
-	// 게시판 댓글 등록
-	
+	// 게시판 댓글 등록	
 	public void rboardInsert(BoardVo boardVo) {
 		System.out.println("서비스에서 등록시 "+boardVo);
-		boardDao.rboardInsert(boardVo);
 		boardDao.rboardUpdate(boardVo);
+		boardDao.rboardInsert(boardVo);
 	}
-
+	
+	// 게시판 수정
+	public void boardUpdate(BoardVo boardVo) {
+		System.out.println("서비스에서 등록시 "+boardVo);
+		boardDao.boardUpdate(boardVo);
+	}
+	
+	// 게시판 삭제
+	public void boardDelete(BoardVo boardVo) {
+		System.out.println("삭제 실행 "+boardVo);
+		boardDao.boardDelete(boardVo);
+	}
+	
 }

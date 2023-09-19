@@ -72,9 +72,9 @@
 								<span class="form-value"> ${boardRead.content} </span>
 							</div>
 							
-							<td><input style="width: 20px; height: 20px" type="text" id="txt-title" name="groupNo" value="${boardRead.groupNo}"></td>
-							<td><input style="width: 20px; height: 20px" type="text" id="txt-title" name="orderNo" value="${boardRead.orderNo}"></td>
-							<td><input style="width: 20px; height: 20px" type="text" id="txt-title" name="depth" value="${boardRead.depth}"></td>
+							<td><input style="width: 20px; height: 20px" type="hidden" id="txt-title" name="groupNo" value="${boardRead.groupNo}"></td>
+							<td><input style="width: 20px; height: 20px" type="hidden" id="txt-title" name="orderNo" value="${boardRead.orderNo}"></td>
+							<td><input style="width: 20px; height: 20px" type="hidden" id="txt-title" name="depth" value="${boardRead.depth}"></td>
 
 							<a id="btn_modify" href="${pageContext.request.contextPath}/brc/list">목록</a>
 
