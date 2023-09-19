@@ -12,19 +12,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.javaex.service.BoardService;
+import com.javaex.service.RBoardService;
 import com.javaex.vo.BoardVo;
 import com.javaex.vo.UserVo;
 
 @Controller
-@RequestMapping("/brc")
-public class BoardController {
+@RequestMapping("/rbrc")
+public class RBoardController {
 
 //	@Autowired
 //	private BoardDao boardDao;
 
 	@Autowired
-	private BoardService boardService;
+	private RBoardService boardService;
 
 	@RequestMapping(value = "/list", method = { RequestMethod.GET, RequestMethod.POST })
 	public String addList(@RequestParam(value="keword", required=false, defaultValue="")String keword, Model model) {
@@ -33,7 +33,7 @@ public class BoardController {
 
 		System.out.println(boardList);
 		model.addAttribute("bList", boardList);
-		return "board/list";
+		return "rboard/list";
 	}
 
 	@RequestMapping(value = "/read", method = { RequestMethod.GET, RequestMethod.POST })
@@ -43,14 +43,14 @@ public class BoardController {
 		BoardVo boardVo = boardService.boardRead(no,hit);
 		model.addAttribute("boardRead", boardVo);
 
-		return "board/read";
+		return "rboard/read";
 	}
 
 	// 게시글 작성 폼
 	@RequestMapping(value = "/writeForm", method = { RequestMethod.GET, RequestMethod.POST })
 	public String writeForm() {
 		System.out.println("게시판 작성 폼");
-		return "board/writeForm";
+		return "rboard/writeForm";
 	}
 
 	// 게시판 글 등록
@@ -77,7 +77,7 @@ public class BoardController {
 		int hit = 0;
 		BoardVo boardVo = boardService.boardRead(no,hit);
 		model.addAttribute("boardRead", boardVo);
-		return "board/modifyForm";
+		return "rboard/modifyForm";
 	}
 
 	@RequestMapping(value = "/modify", method = { RequestMethod.GET, RequestMethod.POST })

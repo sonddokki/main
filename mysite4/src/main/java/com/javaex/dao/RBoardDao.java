@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.javaex.vo.BoardVo;
 
 @Repository
-public class BoardDao {
+public class RBoardDao {
 
 	// 필드
 	@Autowired

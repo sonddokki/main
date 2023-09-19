@@ -6,13 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.javaex.dao.BoardDao;
+import com.javaex.dao.RBoardDao;
 import com.javaex.vo.BoardVo;
 
 @Service
-public class BoardService {
+public class RBoardService {
 
 	@Autowired
-	private BoardDao boardDao;
+	private RBoardDao boardDao;
 
 	public List<BoardVo> boardList(String keword) {
 		System.out.println("@Service");
