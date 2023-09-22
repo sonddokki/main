@@ -96,6 +96,7 @@
 	
 </body>
 
+
 <script type="text/javascript">
 
 	// DOM이 완성되었을때 -- > 그리기 직전
