@@ -43,20 +43,31 @@ public class ApiGuestBookController {
 		
 		return guestBookList;
 	}
-	
+		
+	// 방명록 ajax
+	@ResponseBody // 한명 값 바디로 넣어주기
 	@RequestMapping(value = "/add", method = { RequestMethod.GET, RequestMethod.POST })
-	public String add(@ModelAttribute GuestVo guestVo) {
+	public GuestVo add(@ModelAttribute GuestVo guestVo) {
 		System.out.println("api/add");
 
 		System.out.println("등록할 값 "+ guestVo);
 		
 		GuestVo gVo = GuestbookService.addGuest(guestVo);
 		
-		System.out.println("등록된 값 "+ gVo);		
+		System.out.println("등록된 값 "+ gVo);				
 		
-		
-		return "redirect:addList";
+		return gVo;
 	}
+	
+	// 방명록 메인 화면
+		@RequestMapping(value = "/delete", method = { RequestMethod.GET, RequestMethod.POST })
+		public String delete(@ModelAttribute GuestVo guestVo) {
+			System.out.println("api/delete");
+			
+			GuestbookService.listDelete(guestVo);
+			
+			return "";
+		}
 	
 
 }

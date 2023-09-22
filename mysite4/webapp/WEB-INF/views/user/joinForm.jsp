@@ -9,6 +9,11 @@
 <link href="${pageContext.request.contextPath}/assets/css/mysite.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/assets/css/user.css" rel="stylesheet" type="text/css">
 
+<!-- js -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery-1.12.4.js">
+	
+</script>
+
 </head>
 
 <body>
@@ -51,7 +56,7 @@
 							<div class="form-group">
 								<label class="form-text" for="input-uid">아이디</label> 
 								<input type="text" id="input-uid" name="id" value="" placeholder="아이디를 입력하세요">
-								<button type="button" id="">중복체크</button>
+								<button type="button" id="btnCheck">중복체크</button>
 							</div>
 	
 							<!-- 비밀번호 -->
@@ -109,5 +114,25 @@
 	<!-- //wrap -->
 
 </body>
+
+<script type="text/javascript">
+
+	$("#btnCheck").on("click", function(){
+		console.log("중복체크 클릭");
+		
+		// 기존 DB에서 일치하는 아이디가 있는지 체크
+		
+		// 있을때 없을때 조건문으로 구분에서 창 띄우기	
+		
+	});
+		
+	// 중복체크 비활성화시 회원가입버튼때 창 띄우기 "중복체크를 진행해주세요"
+	
+	
+	
+		
+</script>
+
+
 
 </html>

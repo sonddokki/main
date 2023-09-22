@@ -36,21 +36,13 @@ public class GuestDao {
 	}
 
 	// ajax방명록 등록
-	public GuestVo insertSelectKey(GuestVo guestVo) {
-		System.out.println("dao addGuest");
-		sqlSession.insert("guest.insertSelectKey", guestVo);		
-		return guestVo;
+	public void insertSelectKey(GuestVo guestVo) {
+		sqlSession.insert("guest.insertSelectKey", guestVo);
 	}
-	
+
 	// ajax방명록 한명 불러오기
-		public GuestVo selectOne(int no) {
-			System.out.println("dao selectOne");
-			GuestVo gVo = sqlSession.selectOne("guest.selectOne", no);	
-			System.out.println(gVo);
-			return gVo;
-		}
-		
-	
-	
+	public GuestVo selectOne(int no) {
+		return sqlSession.selectOne("guest.selectOne", no);
+	}
 
 }

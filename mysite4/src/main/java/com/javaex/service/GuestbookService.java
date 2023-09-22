@@ -32,15 +32,8 @@ public class GuestbookService {
 
 	// ajax방명록 등록
 	public GuestVo addGuest(GuestVo guestVo) {
-		System.out.println("ser addGuest");		
-		guestDao.insertSelectKey(guestVo);
-		
-		int no = guestVo.getNo();
-		System.out.println(guestVo.getNo());
-		
-		GuestVo gVo = guestDao.selectOne(no);
-		System.out.println(gVo);
-		return gVo;
+		guestDao.insertSelectKey(guestVo);		
+		return guestDao.selectOne(guestVo.getNo());
 	}
 
 }

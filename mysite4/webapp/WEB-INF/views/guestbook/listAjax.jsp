@@ -78,11 +78,11 @@
 
 					</form>
 
-					<!--<button id="btnGetBotton">방명록 보기</button>-->
+				<!--<button id="btnGetBotton">방명록 보기</button>-->
 
-					<!-- //guestbook -->
-					<div id="gbListArea"></div>
-
+				<!-- //guestbook -->
+				<div id="gbListArea"></div>
+					<!-- 리스트출력 -->
 				</div>
 
 			</div>
@@ -118,7 +118,34 @@
 	$("#btnGetBotton").on("click", function() {
 		//console.log("버튼클릭");			
 		//fetchList();		
-	});
+	});	
+
+	// 서버로부터 방명록 데이타만 받고 싶다.
+	function fetchList() {
+		$.ajax({
+			url : "${pageContext.request.contextPath}/api/list",
+			type : "get",
+			/* contentType : "application/json", */
+			/* data : {name: "홍길동"}, */
+
+			dataType : "json",
+			success : function(guestbookList) {
+				/*성공시 처리해야될 코드 작성*/
+				console.log("json 입장");
+				console.log(guestbookList);
+				console.log(guestbookList[1].name);
+
+				// 그리기
+				for (let i = 0; i < guestbookList.length; i++) {
+					render(guestbookList[i], "down");
+				}
+
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+	}
 
 	// 등록버튼을 클릭했을때
 	$("#guestbookForm").on("submit", function(e) {
@@ -140,48 +167,31 @@
 			data : guestbookVo,
 
 			dataType : "json",
-			success : function(result) {
-				/*성공시 처리해야될 코드 작성*/				
+			success : function(gVo) {
+				/*성공시 처리해야될 코드 작성*/	
+				console.log(gVo);
+				
+				// 그리기
+				render(gVo, "up");
+				
+				// 초기화
+				$("#input-uname").val("");
+				$("#input-pass").val("");
+				$("[name='content']").val("");
+				
 			},
 			error : function(XHR, status, error) {
 				console.error(status + " : " + error);
 			}
 		});
 	});
-
-	// 서버로부터 방명록 데이타만 받고 싶다.
-	function fetchList() {
-		$.ajax({
-			url : "${pageContext.request.contextPath}/api/list",
-			type : "get",
-			/* contentType : "application/json", */
-			/* data : {name: "홍길동"}, */
-
-			dataType : "json",
-			success : function(guestbookList) {
-				/*성공시 처리해야될 코드 작성*/
-				console.log("json 입장");
-				console.log(guestbookList);
-				console.log(guestbookList[1].name);
-
-				// 그리기
-				for (let i = 0; i < guestbookList.length; i++) {
-					render(guestbookList[i]);
-				}
-
-			},
-			error : function(XHR, status, error) {
-				console.error(status + " : " + error);
-			}
-		});
-	}
-
+	
 	// 방명록 내용을 1개씩 그린다
-	function render(guestbookVo) {
+	function render(guestbookVo, dir) {
 
 		// 리스트 + html 그리기
 		let str = '';
-		str += ' <table class="guestRead"> ';
+		str += ' <table id=t'+ guestbookVo.no +' class="guestRead"> ';
 		str += '	<colgroup> ';
 		str += '		<col style="width: 10%;"> ';
 		str += '		<col style="width: 40%;"> ';
@@ -192,7 +202,7 @@
 		str += '		<td>' + guestbookVo.no + '</td> ';
 		str += '		<td>' + guestbookVo.name + '</td> ';
 		str += '		<td>' + guestbookVo.regDate + '</td> ';
-		str += '		<td><a href="">[삭제]</a></td> ';
+		str += '		<td><button class="btnDelForm" data-no='+ guestbookVo.no +'>삭제</button></td> ';
 		str += '	</tr> ';
 		str += '	<tr> ';
 		str += '		<td colspan=4 class="text-left">' + guestbookVo.content
@@ -200,10 +210,49 @@
 		str += '	</tr> ';
 		str += '</table> ';
 
-		console.log("콘솔 그리기");
-		$("#gbListArea").append(str);
+		if(dir =="up"){
+			$("#gbListArea").prepend(str);
+		}else if(dir =="down"){
+			$("#gbListArea").append(str);
+		}else {
+			console.log("잘못입력");
+		}
+	};
+	
+	// 삭제영역의 버튼 눌렀을때
+	$("#gbListArea").on("click", ".btnDelForm" ,function(){
+		console.log("삭제버튼 클릭");
+		
+		let password = prompt("비밀번호를 입력하시오");		
+		console.log(password);
+		
+		// 패스워드, no
+		let no = $(this).data("no");
+		console.log(no);
+		
+		// ajax 요청 db에서 지운다
+		$.ajax({
+			url : "${pageContext.request.contextPath}/api/delete",
+			type : "post",
+			data : {no: no , password: password},
 
-	}
+			dataType : "json",
+			success : function() {
+				/*성공시 처리해야될 코드 작성*/	
+										
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+		
+		// 지운뒤 다시 지워진 리스트를 띄운다
+		$("#t"+no).remove();		
+		
+	});
+	
+	
+	
 </script>
 
 
