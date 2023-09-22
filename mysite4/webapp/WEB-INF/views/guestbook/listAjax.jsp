@@ -76,7 +76,7 @@
 
 					</form>
 
-					<button id="btnGetBotton">방명록 보기</button>
+					<!--<button id="btnGetBotton">방명록 보기</button>-->
 					
 				<!-- //guestbook -->
 					<div id="gbListArea"></div>
@@ -100,19 +100,21 @@
 
 	// DOM이 완성되었을때 -- > 그리기 직전
 	$(document).ready(function(){
-		console.log("ready");			
-		fetchList();		
+		//console.log("ready");			
+		//fetchList();	
+		//console.log("요청후");			
 	});
 	
 	// 화면을 그리고 난 후
 	$(window).load(function(){
-		//console.log("load");	
-		//fetchList();		
+		console.log("load");	
+		fetchList();	
+		console.log("요청후");		
 	});
 
 	// 임시버튼을 클릭했을때
   	$("#btnGetBotton").on("click", function() {
-		console.log("버튼클릭");			
+		//console.log("버튼클릭");			
 		//fetchList();		
 	});
 	
