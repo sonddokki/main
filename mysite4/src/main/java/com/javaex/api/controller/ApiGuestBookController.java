@@ -37,10 +37,13 @@ public class ApiGuestBookController {
 		System.out.println("api/list");			
 
 		// 전체방명록 데이터 가져오기
-		List<GuestVo> guestList = guestDao.guestSelect();
-		System.out.println(guestList);
+		List<GuestVo> guestBookList = guestDao.guestSelect();
+		System.out.println(guestBookList);
 		
-		return guestList;
+		return guestBookList;
 	}
+	
+	
+	
 
 }
