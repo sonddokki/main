@@ -23,15 +23,34 @@ public class GuestDao {
 	public List<GuestVo> guestSelect() {
 		List<GuestVo> guestList = sqlSession.selectList("guest.selectGuest");
 		return guestList;
-	}	
-	
+	}
+
 	// (2) 방명록 등록
 	public void listInsert(GuestVo guestVo) {
 		sqlSession.insert("guest.listInsert", guestVo);
-	}		
-	
+	}
+
 	// (3) 방명록 삭제
 	public void listDelete(GuestVo guestVo) {
 		sqlSession.delete("guest.listDelete", guestVo);
-	}	
+	}
+
+	// ajax방명록 등록
+	public GuestVo insertSelectKey(GuestVo guestVo) {
+		System.out.println("dao addGuest");
+		sqlSession.insert("guest.insertSelectKey", guestVo);		
+		return guestVo;
+	}
+	
+	// ajax방명록 한명 불러오기
+		public GuestVo selectOne(int no) {
+			System.out.println("dao selectOne");
+			GuestVo gVo = sqlSession.selectOne("guest.selectOne", no);	
+			System.out.println(gVo);
+			return gVo;
+		}
+		
+	
+	
+
 }

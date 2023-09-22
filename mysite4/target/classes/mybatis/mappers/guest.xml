@@ -33,6 +33,33 @@
 			and password = #{password}		
 		]]>
 	</delete>
+	
+	
+	<insert id="insertSelectKey" parameterType="com.javaex.vo.GuestVo">
+	
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">	
+			select seq_no.nextval from dual
+		</selectKey>
+		
+		<![CDATA[	
+			insert into guestbook
+	        values ( #{no }, #{name }, #{password }, #{content }, SYSDATE )
+	    ]]>
+    	
+	</insert>
+	
+	<select id="selectOne" parameterType="int" resultType="com.javaex.vo.GuestVo">
+		<![CDATA[
+			select  no
+				    ,name
+					,password
+					,content
+					,reg_date as regDate
+			from guestbook
+			where no = #{no}
+		]]>
+	</select>
+	
 
 
 
