@@ -55,7 +55,7 @@
 							<!-- 아이디 -->
 							<div class="form-group">
 								<label class="form-text" for="input-uid">아이디</label> <input type="text" id="input-uid" name="id" value="" placeholder="아이디를 입력하세요">
-								<button type="button" id="btnCheck">중복체크</button>
+								<button type="button" id="btnIdCheck">중복체크</button>
 								<p id="checkResult"></p>
 							</div>
 
@@ -107,7 +107,7 @@
 </body>
 
 <script type="text/javascript">
-	$("#btnCheck").on("click", function() {
+	$("#btnIdCheck").on("click", function() {
 		console.log("중복체크 클릭");
 
 		let id = $("#input-uid").val();
@@ -158,23 +158,36 @@
 
 	});
 	
-	$("#formJoin").on("click", function(event){
+	$("#formJoin").on("submit", function(event){
 		console.log("회원가입 버튼 클릭");
 		
-		event.preventDefault();
+		//id를 입력안했을때
+		let id = $("#input-uid").val();
+		if(id == "" || id==null){
+			alert("아이디를 입력하세요");
+			return false;
+		}
+		
+		//패스워드 입력안했을때
+		let pw = $("#input-pass").val();
+		if(pw =="" || pw==null){
+			alert("패스워드를 입력하세요");
+			return false;
+		}else if(pw.length < 8){
+			alert("패스워드를 8글자 이상 입력해주세요");
+			return false;
+		}
+		
+		//약관동의
+		let agree = $("#chk-agree").is(":checked")
+		if(agree==false){
+			alert("약관에 동의해 주세요");
+			return false;
+		}
+		
+		//submit의 원래전송을 하지 않아야 할때 return false;
+		return true;
 	});
-	
-	// 중복체크 비활성화시 회원가입버튼때 창 띄우기 "중복체크를 진행해주세요"
-	
-	
-	
-	
-	let agree = $("#chk-agree").is(":checked")
-	if(agree == false) {
-		alert("약관에 동의해 주세요");
-		return
-	}
-	console.log(agree);
 	
 </script>
 

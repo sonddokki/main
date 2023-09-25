@@ -78,7 +78,7 @@
 
 					</form>
 
-					<button id="btnDataSend">복잡한데이터 전송</button>
+					<button id="btnDataSend" type="button">복잡한데이터 전송</button>
 
 					<!-- //guestbook -->
 					<div id="gbListArea"></div>
@@ -102,13 +102,12 @@
 <script type="text/javascript">
 	// json 형식으로 데이터 전송(요청)
 	$("#guestbookForm").on("submit", function(event) {
+		event.preventDefault();
 		console.log("전송버튼 클릭");
 
-		event.preventDefault();
-
-		let name = ("#input-uname").val();
-		let pw = ("#input-pass").val();
-		let content = ("[name=content]").val();
+		let name = $("#input-uname").val();
+		let pw = $("#input-pass").val();
+		let content = $("[name=content]").val();
 
 		let guestbookVo = {
 			name : name,
@@ -122,7 +121,62 @@
 			url : "${pageContext.request.contextPath }/api/add2",
 			type : "post",
 			contentType : "application/json",
-			data : JSON.stringify(guestbookVo),
+			data : JSON.stringify(guestbookVo), //js객체-->json으로 {"name":"황일영", "password":1234, "content":"내용"}
+
+			dataType : "json",
+			success : function(jsonResultVo) {
+				/*성공시 처리해야될 코드 작성*/
+				console.log(jsonResultVo);
+
+				//name값 꺼내기
+				console.log(jsonResultVo.data.name);
+
+				//success
+				console.log(jsonResultVo.result);
+
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+
+	});
+
+	//복잡한 데이터 전송
+	$("#btnDataSend").on("click", function() {
+		console.log("복잡한데이터 전송 버튼 클릭");
+
+		let guestbookList = [];
+
+		guestbookVo1 = {
+			name : "정우성",
+			password : "1234",
+			content : "정우성다녀감"
+		}
+
+		guestbookVo2 = {
+			name : "이효리",
+			password : "1234",
+			content : "이효리다녀감"
+		}
+
+		guestbookVo3 = {
+			name : "박명수",
+			pw : "1234",
+			content : "박명수다녀감"
+		}
+
+		guestbookList.push(guestbookVo1);
+		guestbookList.push(guestbookVo2);
+		guestbookList.push(guestbookVo3);
+
+		console.log(guestbookList);
+
+		$.ajax({
+			url : "${pageContext.request.contextPath }/api/add3",
+			type : "post",
+			contentType : "application/json",
+			data : JSON.stringify(guestbookList), //js객체를 json(문자열) 로 변경한다
 
 			dataType : "json",
 			success : function(result) {
@@ -133,19 +187,8 @@
 			}
 		});
 
-		return false;
-
 	});
-
-	// 복잡한데이터 전송
-	$("#btnDataSend").on("click", function() {
-		console.log("복잡한 전송");
-		
-		
-		
-		
-		
-	})
+	
 </script>
 
 

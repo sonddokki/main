@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.javaex.controller.GuestBookController;
 import com.javaex.service.GuestbookService;
 import com.javaex.vo.GuestVo;
+import com.javaex.vo.JsonResultVo;
 
 @Controller
 @RequestMapping("/api")
@@ -22,7 +23,7 @@ public class ApiGuestBookController {
 	private GuestBookController guestBookController;
 
 	@Autowired
-	GuestbookService GuestbookService;
+	GuestbookService guestbookService;
 
 	// 방명록 메인 화면
 	@RequestMapping(value = "/addList", method = { RequestMethod.GET, RequestMethod.POST })
@@ -39,7 +40,7 @@ public class ApiGuestBookController {
 		System.out.println("api/list");
 
 		// 전체방명록 데이터 가져오기
-		List<GuestVo> guestBookList = GuestbookService.guestSelect();
+		List<GuestVo> guestBookList = guestbookService.guestSelect();
 		System.out.println(guestBookList);
 
 		return guestBookList;
@@ -53,7 +54,7 @@ public class ApiGuestBookController {
 
 		System.out.println("등록할 값 " + guestVo);
 
-		GuestVo gVo = GuestbookService.addGuest(guestVo);
+		GuestVo gVo = guestbookService.addGuest(guestVo);
 
 		System.out.println("등록된 값 " + gVo);
 
@@ -65,7 +66,7 @@ public class ApiGuestBookController {
 	public String delete(@ModelAttribute GuestVo guestVo) {
 		System.out.println("api/delete");
 
-		GuestbookService.listDelete(guestVo);
+		guestbookService.listDelete(guestVo);
 
 		return "";
 	}
@@ -73,57 +74,43 @@ public class ApiGuestBookController {
 	
 	////////////////////////////////////////////////////////////////////
 	
-	// 방명록 메인 화면
-		@RequestMapping(value = "/addList2", method = { RequestMethod.GET, RequestMethod.POST })
+	//방명록 메인 화면
+		@RequestMapping(value="/addList2", method= {RequestMethod.GET, RequestMethod.POST})
 		public String addList2() {
-			System.out.println("api/addList2");
-
+			System.out.println("ApiGuestbookController.addList2()");
+			
+			
 			return "guestbook/listAjax2";
 		}
-
-		// 방명록 데이터만 가져오기 ajax
+		
+		
+		//요청데이터를 json으로 받기
 		@ResponseBody
-		@RequestMapping(value = "/list2", method = { RequestMethod.GET, RequestMethod.POST })
-		public List<GuestVo> list2() {
-			System.out.println("api/list");
-
-			// 전체방명록 데이터 가져오기
-			List<GuestVo> guestBookList = GuestbookService.guestSelect();
-			System.out.println(guestBookList);
-
-			return guestBookList;
-		}
-		
-		// 방명록 ajax
-		@ResponseBody // 한명 값 바디로 넣어주기
-		@RequestMapping(value = "/add2", method = { RequestMethod.GET, RequestMethod.POST })
-		public GuestVo add2(@RequestBody GuestVo guestVo) {
-			System.out.println("api/add");
-
-			System.out.println("등록할 값 " + guestVo);
-
-			GuestVo gVo = GuestbookService.addGuest(guestVo);
-
-			System.out.println("등록된 값 " + gVo);
-
-			return null;
-		}
-
-		// 방명록 삭제
-		@RequestMapping(value = "/delete2", method = { RequestMethod.GET, RequestMethod.POST })
-		public String delete2(@ModelAttribute GuestVo guestVo) {
-			System.out.println("api/delete");
-
-			GuestbookService.listDelete(guestVo);
-
-			return "";
-		}
-		
-		
-		// 복잡한 데이터 전송 테스트
-		@RequestMapping(value = "/delete2", method = { RequestMethod.GET, RequestMethod.POST })
-		public void add3(@RequestBody ) {
+		@RequestMapping(value="/add2", method= {RequestMethod.GET, RequestMethod.POST})
+		public JsonResultVo add2(@RequestBody GuestVo guestbookVo) {
+			System.out.println("ApiGuestbookController.add2()");
+			System.out.println(guestbookVo);
+			
+			//service 처리
+			GuestVo gVo = guestbookService.addGuest(guestbookVo);
+			
+			JsonResultVo jsonResultVo= new JsonResultVo();
+			jsonResultVo.success(gVo);
+			
+			return jsonResultVo; 
 			
 		}
+		
+		
+		//복잡한 데이터 전송 테스트
+		@RequestMapping(value="/add3", method= {RequestMethod.GET, RequestMethod.POST})
+		public String add3(@RequestBody List<GuestVo> guestbookList) {
+			System.out.println("ApiGuestbookController.add3()");
+			System.out.println(guestbookList);
+			
+			
+			return null;
+		}
+		
 
 }
