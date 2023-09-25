@@ -30,12 +30,17 @@ public class UserDao {
 	// (3) 회원수정용 1명 가져오기
 	public UserVo userUpdateSelect(UserVo userVo) {
 		return sqlSession.selectOne("user.selectModifyUser", userVo);
-		
+
 	}
 
 	// (4) 회원수정
 	public void update(UserVo userVo) {
 		sqlSession.update("user.updateUser", userVo);
-	}	
-	
+	}
+
+	// (5) 중복체크
+	public UserVo selectUserOneById(String id) {
+		return sqlSession.selectOne("user.selectUserOneById", id);
+	}
+
 }
