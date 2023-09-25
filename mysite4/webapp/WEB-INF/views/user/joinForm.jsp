@@ -50,14 +50,13 @@
 
 				<div id="user">
 					<div id="joinForm">
-						<form action="joinOk" method="get">
+						<form id=formJoin action="joinOk" method="get">
 
 							<!-- 아이디 -->
 							<div class="form-group">
 								<label class="form-text" for="input-uid">아이디</label> <input type="text" id="input-uid" name="id" value="" placeholder="아이디를 입력하세요">
 								<button type="button" id="btnCheck">중복체크</button>
-								<p id="checkResult"> </p>
-								
+								<p id="checkResult"></p>
 							</div>
 
 							<!-- 비밀번호 -->
@@ -117,33 +116,65 @@
 		$.ajax({
 			url : "${pageContext.request.contextPath}/user/idcheck",
 			type : "post",
-			data : {id : id},
+			data : {
+				id : id
+			},
 
-			//dataType : "json",
-			success : function(result) {
+			dataType : "json",
+			success : function(jsonResult) {
 				/*성공시 처리해야될 코드 작성*/
-				console.log(result);
+				console.log(jsonResult);
+				console.log(jsonResult.result);
+
+				if (jsonResult.result == "success") {
+					
+					if (jsonResult.data == true) {
+						$("#checkResult").text("사용할 수 있는 id입니다.")
+					} else if (jsonResult.data == false) {
+						$("#checkResult").text("이미 사용중인 id입니다.")
+					} else {
+						console.log("잘못된 처리");
+					}
+
+				} else if (jsonResult.result == "fail") {
+					
+				} else {
+					console.log("통신오류");
+				}
 				
+				/* 
 				if(result == true) {
 					$("#checkResult").text("사용할 수 있는 id입니다.")
 				} else {
 					$("#checkResult").text("이미 사용중인 id입니다.")
 				}
-				
+				 */
 
 			},
 			error : function(XHR, status, error) {
 				console.error(status + " : " + error);
 			}
-		});
-
-		// 기존 DB에서 일치하는 아이디가 있는지 체크
-
-		// 있을때 없을때 조건문으로 구분에서 창 띄우기	
+		});		
 
 	});
-
+	
+	$("#formJoin").on("click", function(event){
+		console.log("회원가입 버튼 클릭");
+		
+		event.preventDefault();
+	});
+	
 	// 중복체크 비활성화시 회원가입버튼때 창 띄우기 "중복체크를 진행해주세요"
+	
+	
+	
+	
+	let agree = $("#chk-agree").is(":checked")
+	if(agree == false) {
+		alert("약관에 동의해 주세요");
+		return
+	}
+	console.log(agree);
 	
 </script>
 

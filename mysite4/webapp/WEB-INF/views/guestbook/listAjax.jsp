@@ -219,6 +219,10 @@
 		}
 	};
 	
+	
+	
+	
+	
 	// 삭제영역의 버튼 눌렀을때
 	$("#gbListArea").on("click", ".btnDelForm" ,function(){
 		console.log("삭제버튼 클릭");
