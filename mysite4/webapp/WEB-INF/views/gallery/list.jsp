@@ -55,8 +55,9 @@
 				<div id="gallery">
 					<div id="list">
 				
-						
+						<c:if test="${!(empty authUser)}">
 							<button id="btnImgUpload">이미지올리기</button>
+						</c:if>
 							<div class="clear"></div>
 	
 				
@@ -66,7 +67,7 @@
 							<c:forEach items="${galList}" var="galleryVo" varStatus="status">
 								<li>
 									<div class="view" >
-										<img class="imgItem" src="">
+										<img class="imgItem" src="${pageContext.request.contextPath }/upload/${galleryVo.saveName}">
 										<div class="imgWriter">작성자: <strong>${galleryVo.userName}</strong></div>
 									</div>
 								</li>
@@ -104,7 +105,7 @@
 				<h4 class="modal-title">이미지등록</h4>
 			</div>
 			
-			<form method="" action="" >
+			<form method="post" action="${pageContext.request.contextPath }/gallery/upload" enctype="multipart/form-data" >
 				<div class="modal-body">
 					<div class="form-group">
 						<label class="form-text">글작성</label>
@@ -171,6 +172,19 @@
 		//$("#addModal").modal("hide");		
 		
 	});
+
+
+	$(".imgItem").on("click", function() {
+		console.log("이미치 호출");
+		
+		// 열기
+		$("#viewModal").modal("show");
+		
+		// 닫기
+		//$("#addModal").modal("hide");		
+		
+	});
+	
 
 
 </script>

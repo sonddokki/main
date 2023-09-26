@@ -26,9 +26,10 @@ public class GalleryService {
 	}
 	
 	
-	public String save(MultipartFile file) {
+	public String save(MultipartFile file, GalleryVo galleryVo) {
 		System.out.println("파일 저장 서비스");
-		System.out.println(file.getOriginalFilename());			
+		System.out.println(file.getOriginalFilename());		
+		System.out.println(galleryVo);			
 		
 		// 0.파일 경로
 			String saveDir = "C:\\\\javaStudy\\\\upload";
@@ -57,11 +58,13 @@ public class GalleryService {
 			System.out.println(filePath);
 			
 			// (6) Vo로 묶기
-			GalleryVo galleryVo = new GalleryVo(filePath, orgName, saveName,  fileSize);
-			System.out.println(galleryVo);
+			galleryVo.setFilePath(filePath);
+			galleryVo.setOrgName(orgName);
+			galleryVo.setSaveName(saveName);
+			galleryVo.setFileSize(fileSize);		
 			
-			galleryVo.setUserNo(1);
-			galleryVo.setContent("안녕하세요");
+			
+			System.out.println(galleryVo);
 			
 			// (7) Dao 만들어서 저장하기
 			System.out.println("db에 저장 " + galleryVo);

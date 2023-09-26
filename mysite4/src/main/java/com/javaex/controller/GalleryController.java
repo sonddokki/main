@@ -2,6 +2,8 @@ package com.javaex.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.javaex.service.GalleryService;
 import com.javaex.vo.GalleryVo;
+import com.javaex.vo.UserVo;
 
 
 @Controller
@@ -34,8 +37,26 @@ public class GalleryController {
 	}	
 	
 	@RequestMapping(value="upload", method = {RequestMethod.GET, RequestMethod.POST})
-	public String upload(@RequestParam(value="file") MultipartFile file, Model model) {
+	public String upload(@RequestParam(value="image") MultipartFile file
+						,@RequestParam(value="content") String content
+						,HttpSession session) {
 		System.out.println("파일업로드");
+		
+		System.out.println(file.isEmpty());
+		System.out.println(file.getOriginalFilename());
+		System.out.println(content);
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		System.out.println(authUser.getNo());
+		
+		GalleryVo galleryVo = new GalleryVo();
+		galleryVo.setUserNo(authUser.getNo());
+		galleryVo.setUserName(authUser.getName());
+		galleryVo.setContent(content);
+		
+		System.out.println(galleryVo);
+		galleryService.save(file, galleryVo);
+		
+		// 세션아이디 추가
 		
 		// 파일 주소확인 (파일이 없어도 자동으로 만들어줌)
 		//System.out.println(file);
@@ -47,12 +68,9 @@ public class GalleryController {
 		//System.out.println(file.getOriginalFilename());
 		
 		// 서비스에게 파일 저장 시키기
-		String saveName = galleryService.save(file);
+		//galleryService.save(file);
 		
-		model.addAttribute("saveName", saveName);
-		
-		return "";
-		//return "redirect:list";
+		return "redirect:list";
 	}
 	
 

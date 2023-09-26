@@ -23,7 +23,7 @@
 		 <![CDATA[
 		 INSERT INTO gallery
 		 VALUES (seq_gallery_no.nextval
-                      ,#{user_no}
+                      ,#{userNo}
                       ,#{content}
                       ,#{filePath}
                       ,#{orgName}
