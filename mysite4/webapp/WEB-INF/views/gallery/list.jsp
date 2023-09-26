@@ -143,13 +143,15 @@
 				</div>
 				
 				<div class="formgroup">
-					<p id="viewModelContent"></p>
+					<p id="viewModelContent"> </p>
 				</div>
 				
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-				<button type="button" class="btn btn-danger" id="btnDel">삭제</button>
+				<!--<c:if test="${boardVo.userNo == authUser.no}">	 -->										
+					<button type="button" class="btn btn-danger" id="btnDel">삭제</button>
+				<!--</c:if> -->
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
@@ -185,7 +187,11 @@
 		
 	});
 	
-
+	
+	$("#btnDel").on("click", function() {
+		console.log("삭체");
+		
+			});
 
 </script>
 
