@@ -50,7 +50,7 @@
 			<div id="file">
 				
 					<div>
-						<img id="resultImg" src="">
+						<img id="resultImg" src="${pageContext.request.contextPath }/upload/${saveName}">
 					</div>
 					<p>
 						<a id="btnUpload" href="${pageContext.request.contextPath }/fileupload/form"> 다시 업로드 하기 </a>
@@ -66,7 +66,7 @@
 		<!-- //container  -->
 
 
-		<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
+		<c:import url="/WEB-INF/views/include/footer.jsp"></c:import>
 		<!-- //footer -->
 
 	</div>

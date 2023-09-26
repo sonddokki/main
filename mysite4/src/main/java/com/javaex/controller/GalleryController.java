@@ -2,6 +2,7 @@ package com.javaex.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,7 +26,7 @@ public class GalleryController {
 	}	
 
 	@RequestMapping(value="upload", method = {RequestMethod.GET, RequestMethod.POST})
-	public String upload(@RequestParam(value="file") MultipartFile file) {
+	public String upload(@RequestParam(value="file") MultipartFile file, Model model) {
 		System.out.println("파일업로드");
 		
 		// 파일 주소확인 (파일이 없어도 자동으로 만들어줌)
@@ -38,9 +39,12 @@ public class GalleryController {
 		//System.out.println(file.getOriginalFilename());
 		
 		// 서비스에게 파일 저장 시키기
-		fileService.save(file);
+		String saveName = fileService.save(file);
 		
-		return "";
+		model.addAttribute("saveName", saveName);
+		
+		
+		return "gallery/result";
 	}
 
 }

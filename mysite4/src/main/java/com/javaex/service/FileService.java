@@ -15,7 +15,7 @@ import com.javaex.vo.FileVo;
 public class FileService {
 	
 	
-	public void save(MultipartFile file) {
+	public String save(MultipartFile file) {
 		System.out.println("파일 저장 서비스");
 		System.out.println(file.getOriginalFilename());	
 		
@@ -67,7 +67,7 @@ public class FileService {
 				e.printStackTrace();
 			}
 			
-			
+			return saveName;
 			
 	}
 	
