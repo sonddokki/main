@@ -1,7 +1,5 @@
 package com.javaex.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,29 +8,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.javaex.service.GalleryService;
-import com.javaex.vo.GalleryVo;
-
+import com.javaex.service.FileService;
 
 @Controller
-@RequestMapping("gallery")
-public class GalleryController {	
+@RequestMapping("fileupload")
+public class FileController {
 	
 	@Autowired
-	private GalleryService galleryService;
+	private FileService fileService;
 	
-	@RequestMapping(value="/list", method = {RequestMethod.GET, RequestMethod.POST})
-	public String list(Model model) {
-		System.out.println("갤러리 리스트");
+	
+	@RequestMapping(value="form", method = {RequestMethod.GET, RequestMethod.POST})
+	public String form() {
+		System.out.println("갤러리 폼");
 		
-		List<GalleryVo> galList = galleryService.galleryList();
-		System.out.println(galList);
-		
-		model.addAttribute("galList" ,galList);
-		
-		return "gallery/list";
+		return "gallery/form";
 	}	
-	
+
 	@RequestMapping(value="upload", method = {RequestMethod.GET, RequestMethod.POST})
 	public String upload(@RequestParam(value="file") MultipartFile file, Model model) {
 		System.out.println("파일업로드");
@@ -47,13 +39,12 @@ public class GalleryController {
 		//System.out.println(file.getOriginalFilename());
 		
 		// 서비스에게 파일 저장 시키기
-		String saveName = galleryService.save(file);
+		String saveName = fileService.save(file);
 		
 		model.addAttribute("saveName", saveName);
 		
-		return "";
-		//return "redirect:list";
+		
+		return "gallery/result";
 	}
-	
 
 }

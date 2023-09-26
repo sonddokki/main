@@ -1,37 +1,60 @@
 package com.javaex.vo;
 
-public class FileVo {
+public class GalleryVo {
 	
 	
 	private int no;
-	private int user_no;
+	private int userNo;
+	private String userName;	
 	private String content;
 	private String filePath;
 	private String orgName;
 	private String saveName;
 	private long fileSize;
 	
-	public FileVo() {
-		super();
+	public GalleryVo() {
 	}
+		
 	
-	
-	public FileVo(String filePath, String orgName, String saveName, long fileSize) {
-		this.filePath = filePath;
-		this.orgName = orgName;
-		this.saveName = saveName;
-		this.fileSize = fileSize;
-	}
-
-
-	public FileVo(int no, int user_no, String content, String filePath, String orgName, String saveName, long fileSize) {
+	public GalleryVo(int no, int userNo, String userName, String content, String filePath, String orgName,
+			String saveName, long fileSize) {		
 		this.no = no;
-		this.user_no = user_no;
+		this.userNo = userNo;
+		this.userName = userName;
 		this.content = content;
 		this.filePath = filePath;
 		this.orgName = orgName;
 		this.saveName = saveName;
 		this.fileSize = fileSize;
+	}
+
+
+
+	public GalleryVo(String filePath, String orgName, String saveName, long fileSize) {
+		this.filePath = filePath;
+		this.orgName = orgName;
+		this.saveName = saveName;
+		this.fileSize = fileSize;
+	}
+
+
+	public GalleryVo(int no, int userNo, String content, String filePath, String orgName, String saveName, long fileSize) {
+		this.no = no;
+		this.userNo = userNo;
+		this.content = content;
+		this.filePath = filePath;
+		this.orgName = orgName;
+		this.saveName = saveName;
+		this.fileSize = fileSize;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 
@@ -46,12 +69,12 @@ public class FileVo {
 
 
 	public int getUserNo() {
-		return user_no;
+		return userNo;
 	}
 
 
-	public void setUserNo(int user_no) {
-		this.user_no = user_no;
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
 	}
 
 
@@ -107,10 +130,15 @@ public class FileVo {
 
 	@Override
 	public String toString() {
-		return "FileVo [no=" + no + ", user_no=" + user_no + ", content=" + content + ", filePath=" + filePath
-				+ ", orgName=" + orgName + ", saveName=" + saveName + ", fileSize=" + fileSize + "]";
+		return "GalleryVo [no=" + no + ", userNo=" + userNo + ", userName=" + userName + ", content=" + content
+				+ ", filePath=" + filePath + ", orgName=" + orgName + ", saveName=" + saveName + ", fileSize="
+				+ fileSize + "]";
 	}
+
+
 	
+
+
 	
 	
 	

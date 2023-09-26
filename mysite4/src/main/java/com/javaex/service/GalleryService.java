@@ -4,24 +4,31 @@ import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.javaex.dao.FileDao;
-import com.javaex.vo.FileVo;
+import com.javaex.dao.GalleryDao;
+import com.javaex.vo.GalleryVo;
 
 @Service
-public class FileService {
+public class GalleryService {
 	
 	@Autowired
-	private FileDao fileDao;		
+	private GalleryDao galleryDao;		
+	
+	public List<GalleryVo> galleryList() {
+		System.out.println("갤러리 불러오기 서비스");		
+		return galleryDao.galleryList();
+	}
+	
 	
 	public String save(MultipartFile file) {
 		System.out.println("파일 저장 서비스");
-		System.out.println(file.getOriginalFilename());	
+		System.out.println(file.getOriginalFilename());			
 		
 		// 0.파일 경로
 			String saveDir = "C:\\\\javaStudy\\\\upload";
@@ -50,15 +57,15 @@ public class FileService {
 			System.out.println(filePath);
 			
 			// (6) Vo로 묶기
-			FileVo fileVo = new FileVo(filePath, orgName, saveName,  fileSize);
-			System.out.println(fileVo);
+			GalleryVo galleryVo = new GalleryVo(filePath, orgName, saveName,  fileSize);
+			System.out.println(galleryVo);
 			
-			fileVo.setUserNo(1);
-			fileVo.setContent("안녕하세요");
+			galleryVo.setUserNo(1);
+			galleryVo.setContent("안녕하세요");
 			
 			// (7) Dao 만들어서 저장하기
-			System.out.println("db에 저장 " + fileVo);
-			fileDao.save(fileVo);
+			System.out.println("db에 저장 " + galleryVo);
+			galleryDao.save(galleryVo);
 			
 		
 		// 2.파일저장 (서버쪽 하드디스크에 저장) ////////////////////////////////////////////
