@@ -63,17 +63,20 @@ public class BoardController {
 	
 	// (검색X, 페이징O)
 		@RequestMapping(value = "/list4", method = { RequestMethod.GET, RequestMethod.POST })
-		public String list4(@RequestParam(value="crtPage", required = false, defaultValue = "1") int crtPage ,Model model) {
+		public String list4(@RequestParam(value="crtPage", required = false, defaultValue = "1") int crtPage
+						   ,@RequestParam(value="search", required = false, defaultValue = "") String search 
+						   ,Model model) {
 			System.out.println("페이징 게시판 리스트 list4");
 			System.out.println(crtPage);
+			System.out.println(search);
 		
 			// service를 통해서 리스트를 가져온다
-			Map<String, Object> pMap = boardService.getBoardList3(crtPage);
+			Map<String, Object> pMap = boardService.getBoardList4(crtPage, search);
 			System.out.println(pMap);
 			
 			model.addAttribute("pMap", pMap);
 			
-			return "board/list3";
+			return "board/list4";
 		}
 
 	@RequestMapping(value = "/writeForm", method = { RequestMethod.GET, RequestMethod.POST })
