@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.javaex.dao.BoardDao;
+import com.javaex.service.BoardService;
 import com.javaex.vo.BoardVo;
 import com.javaex.vo.UserVo;
 
@@ -23,10 +24,13 @@ public class BoardController {
 	@Autowired
 	private BoardDao boardDao;
 	
+	@Autowired
+	private BoardService boardService;
+	
 	@RequestMapping(value = "/list", method = { RequestMethod.GET, RequestMethod.POST })
 	public String addList(Model model) {
 		System.out.println("게시판 리스트");	
-		List<BoardVo> bList = boardDao.boardSelect();
+		List<BoardVo> bList = boardService.boardSelect();
 		model.addAttribute("bList", bList);
 		return "board/list";
 	}
@@ -40,10 +44,21 @@ public class BoardController {
 	@RequestMapping(value = "/boardInsert", method = { RequestMethod.GET, RequestMethod.POST })
 	public String boardInsert(@ModelAttribute BoardVo boardVo, HttpSession session) {
 		System.out.println("게시판 등록");
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		boardVo.setUserNo(authUser.getNo());
-		boardDao.boardInsert(boardVo);
+		
+		
+		// 임시
+		for(int i=1;i<=157;i++) {
+			UserVo authUser = (UserVo) session.getAttribute("authUser");
+			boardVo.setUserNo(authUser.getNo());
+			boardVo.setTitle(i + " 번째 글 제목");
+			boardVo.setContent(i + " 번째 글 내용");
+			
+			boardDao.boardInsert(boardVo);		
+			
+		}
+		
 		return "redirect:list";
+		
 	}
 
 	@RequestMapping(value = "/read", method = { RequestMethod.GET, RequestMethod.POST })

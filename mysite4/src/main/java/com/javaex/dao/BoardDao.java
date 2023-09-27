@@ -29,6 +29,10 @@ public class BoardDao {
 	// (2) 게시판 등록
 	public void boardInsert(BoardVo boardVo) {
 		sqlSession.insert("board.insertBoard", boardVo);
+		
+		
+		
+		
 	}
 
 	// (3) 게시판 읽기
