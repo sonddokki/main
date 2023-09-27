@@ -132,12 +132,19 @@ public class BoardService {
 		if (startPageBtnNo != 1) {
 			prev = true;
 		}
+		
+		System.out.println("==========================================");
+		System.out.println("시작페이지 " + startPageBtnNo);
+		System.out.println("끝페이지 " + endPageBtnNo);
+		System.out.println("이전버튼 " + prev);
+		System.out.println("다음버튼 " + next);
 
 		Map<String, Object> pMap = new HashMap<String, Object>();
 		pMap.put("startPageBtnNo", startPageBtnNo);
 		pMap.put("endPageBtnNo", endPageBtnNo);
 		pMap.put("prev", prev);
 		pMap.put("next", next);
+		pMap.put("search", search);
 		pMap.put("pList", pList);
 
 		return pMap;

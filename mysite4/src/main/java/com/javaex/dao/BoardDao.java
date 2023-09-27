@@ -65,6 +65,7 @@ public class BoardDao {
 	public int selectTotalCnt(String search) {
 		System.out.println("selectTotalCnt");
 		int totalCount = sqlSession.selectOne("board.selectTotalCnt2", search);
+		System.out.println("Dao "+totalCount);
 		return totalCount;
 	}
 

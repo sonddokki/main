@@ -86,7 +86,7 @@
 						<div id="paging">
 							<ul>
 								<c:if test="${pMap.prev}">
-									<li><a href="${pageContext.request.contextPath}/brc/list4?crtPage=${pMap.startPageBtnNo-1}">◀</a></li>
+									<li><a href="${pageContext.request.contextPath}/brc/list4?crtPage=${pMap.startPageBtnNo-1}&search=${pMap.search}">◀</a></li>
 								</c:if>
 									<c:forEach begin="${pMap.startPageBtnNo}" end="${pMap.endPageBtnNo}" step="1" var="page">
 										<c:choose>
@@ -94,13 +94,13 @@
 												<li class="active"><a href="">${page}</a></li>
 											</c:when>
 											<c:otherwise>
-												<li class=""><a href="${pageContext.request.contextPath}/brc/list4?crtPage=${page}">${page}</a></li>
+												<li class=""><a href="${pageContext.request.contextPath}/brc/list4?crtPage=${page}&search=${pMap.search}">${page}</a></li>
 											</c:otherwise>
 										</c:choose>
 									</c:forEach>
 									
 								<c:if test="${pMap.next}">
-									<li><a href="${pageContext.request.contextPath}/brc/list4?crtPage=${pMap.endPageBtnNo+1}">▶</a></li>
+									<li><a href="${pageContext.request.contextPath}/brc/list4?crtPage=${pMap.endPageBtnNo+1}&search=${pMap.search}">▶</a></li>
 								</c:if>
 							</ul>
 							
