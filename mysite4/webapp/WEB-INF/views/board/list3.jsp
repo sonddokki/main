@@ -66,13 +66,14 @@
 							</thead>							
 									
 							<tbody>
-							<c:forEach items="${bList}" var="boardVo" varStatus="status">
+							<c:forEach items="${pMap.pList}" var="boardVo" varStatus="status">
 								<tr>
 									<td>${boardVo.no}</td>
 									<td class="text-left"><a href="${pageContext.request.contextPath}/brc/read?no=${boardVo.no}&hit=1">${boardVo.title}</a></td>
 									<td>${boardVo.name}</td>
 									<td>${boardVo.hit}</td>
 									<td>${boardVo.regDate}</td>
+									
 									<c:if test="${boardVo.userNo == authUser.no}" >
 									<td><a href="${pageContext.request.contextPath}/brc/delete?userNo=${boardVo.userNo}&no=${boardVo.no}">[삭제]</a></td>
 									</c:if>							
@@ -84,18 +85,23 @@
 			
 						<div id="paging">
 							<ul>
-								<li><a href="">◀</a></li>
-								<li><a href="">1</a></li>
-								<li><a href="">2</a></li>
-								<li><a href="">3</a></li>
-								<li><a href="">4</a></li>
-								<li class="active"><a href="">5</a></li>
-								<li><a href="">6</a></li>
-								<li><a href="">7</a></li>
-								<li><a href="">8</a></li>
-								<li><a href="">9</a></li>
-								<li><a href="">10</a></li>
-								<li><a href="">▶</a></li>
+								<c:if test="${pMap.prev}">
+									<li><a href="${pageContext.request.contextPath}/brc/list3?crtPage=${pMap.startPageBtnNo-1}">◀</a></li>
+								</c:if>
+									<c:forEach begin="${pMap.startPageBtnNo}" end="${pMap.endPageBtnNo}" step="1" var="page">
+										<c:choose>
+											<c:when test="${param.crtPage == page}">
+												<li class="active"><a href="">${page}</a></li>
+											</c:when>
+											<c:otherwise>
+												<li class=""><a href="${pageContext.request.contextPath}/brc/list3?crtPage=${page}">${page}</a></li>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+									
+								<c:if test="${pMap.next}">
+									<li><a href="${pageContext.request.contextPath}/brc/list3?crtPage=${pMap.endPageBtnNo+1}">▶</a></li>
+								</c:if>
 							</ul>
 							
 							

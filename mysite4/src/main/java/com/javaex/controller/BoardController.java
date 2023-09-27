@@ -1,6 +1,7 @@
 package com.javaex.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -20,20 +21,60 @@ import com.javaex.vo.UserVo;
 @Controller
 @RequestMapping("/brc")
 public class BoardController {
-	
+
 	@Autowired
 	private BoardDao boardDao;
-	
+
 	@Autowired
 	private BoardService boardService;
-	
+
+	// (검색X, 페이징X)
 	@RequestMapping(value = "/list", method = { RequestMethod.GET, RequestMethod.POST })
-	public String addList(Model model) {
-		System.out.println("게시판 리스트");	
+	public String List(Model model) {
+		System.out.println("게시판 리스트");
 		List<BoardVo> bList = boardService.boardSelect();
 		model.addAttribute("bList", bList);
 		return "board/list";
 	}
+
+	// (검색O, 페이징X)
+	@RequestMapping(value = "/search", method = { RequestMethod.GET, RequestMethod.POST })
+	public String boardSearch(@RequestParam("search") String search, Model model) {
+		System.out.println("게시판 글 검색");
+		List<BoardVo> sList = boardDao.boardSearch(search);
+		model.addAttribute("bList", sList);
+		return "board/list";
+	}
+
+	// (검색X, 페이징O)
+	@RequestMapping(value = "/list3", method = { RequestMethod.GET, RequestMethod.POST })
+	public String pagingList(@RequestParam(value="crtPage", required = false, defaultValue = "1") int crtPage ,Model model) {
+		System.out.println("페이징 게시판 리스트 0927");
+		System.out.println(crtPage);
+	
+		// service를 통해서 리스트를 가져온다
+		Map<String, Object> pMap = boardService.getBoardList3(crtPage);
+		System.out.println(pMap);
+		
+		model.addAttribute("pMap", pMap);
+		
+		return "board/list3";
+	}
+	
+	// (검색X, 페이징O)
+		@RequestMapping(value = "/list4", method = { RequestMethod.GET, RequestMethod.POST })
+		public String list4(@RequestParam(value="crtPage", required = false, defaultValue = "1") int crtPage ,Model model) {
+			System.out.println("페이징 게시판 리스트 list4");
+			System.out.println(crtPage);
+		
+			// service를 통해서 리스트를 가져온다
+			Map<String, Object> pMap = boardService.getBoardList3(crtPage);
+			System.out.println(pMap);
+			
+			model.addAttribute("pMap", pMap);
+			
+			return "board/list3";
+		}
 
 	@RequestMapping(value = "/writeForm", method = { RequestMethod.GET, RequestMethod.POST })
 	public String writeForm() {
@@ -44,21 +85,20 @@ public class BoardController {
 	@RequestMapping(value = "/boardInsert", method = { RequestMethod.GET, RequestMethod.POST })
 	public String boardInsert(@ModelAttribute BoardVo boardVo, HttpSession session) {
 		System.out.println("게시판 등록");
-		
-		
+
 		// 임시
-		for(int i=1;i<=157;i++) {
+		for (int i = 1; i <= 157; i++) {
 			UserVo authUser = (UserVo) session.getAttribute("authUser");
 			boardVo.setUserNo(authUser.getNo());
 			boardVo.setTitle(i + " 번째 글 제목");
 			boardVo.setContent(i + " 번째 글 내용");
-			
-			boardDao.boardInsert(boardVo);		
-			
+
+			boardDao.boardInsert(boardVo);
+
 		}
-		
+
 		return "redirect:list";
-		
+
 	}
 
 	@RequestMapping(value = "/read", method = { RequestMethod.GET, RequestMethod.POST })
@@ -95,14 +135,6 @@ public class BoardController {
 		System.out.println("게시판 글 삭제");
 		boardDao.boardDelete(boardVo);
 		return "redirect:list";
-	}
-
-	@RequestMapping(value = "/search", method = { RequestMethod.GET, RequestMethod.POST })
-	public String boardSearch(@RequestParam("search") String search, Model model) {
-		System.out.println("게시판 글 검색");
-		List<BoardVo> sList = boardDao.boardSearch(search);
-		model.addAttribute("bList", sList);
-		return "board/list";
 	}
 
 }
