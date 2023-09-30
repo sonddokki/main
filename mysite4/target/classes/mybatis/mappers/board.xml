@@ -3,6 +3,7 @@
 
 <mapper namespace="board">
 
+	<!-- 리스트 -->
 	<select id="selectBoard" resultType="com.javaex.vo.BoardVo">
 		<![CDATA[
 			select  bo.no as no
@@ -52,6 +53,7 @@
 		]]>
 	</select>
 	
+	<!-- 글 전체 갯수 -->
 	<select id="selectTotalCnt" resultType="int">
 		<![CDATA[
 			SELECT count(*) count
@@ -103,6 +105,7 @@
 		]]>
 	</select>		
 
+	<!-- 글 등록 -->
 	<insert id="insertBoard" parameterType="com.javaex.vo.BoardVo">  
 		 <![CDATA[
 	     INSERT INTO board 
@@ -115,6 +118,7 @@
 		 ]]>
 	</insert>
 	
+	<!-- 글 읽어오기 -->
 	<select id="leadBoard" parameterType="int" resultType="com.javaex.vo.BoardVo">
 		<![CDATA[
 			select  bo.no as no
@@ -130,6 +134,7 @@
 		]]>
 	</select>
 	
+	<!-- 조회수 올리기 -->
 	<update id="hitUp" parameterType="int"> 
 		<![CDATA[
 			UPDATE board
@@ -138,6 +143,7 @@
 		]]>
 	</update>
 	
+	<!-- 글 수정 -->
 	<update id="updateBoard" parameterType="com.javaex.vo.BoardVo"> 
 		<![CDATA[
 			UPDATE board
@@ -148,6 +154,7 @@
 		]]>
 	</update>
 	
+	<!-- 글 삭제 -->
 	<delete id="deleteBoard" parameterType="com.javaex.vo.BoardVo">
 		<![CDATA[
 			DELETE from board
@@ -156,6 +163,7 @@
 		]]>
 	</delete>
 	
+	<!-- 글 검색 -->
 	<select id="searchBoard"  parameterType="String" resultType="com.javaex.vo.BoardVo">
 		<![CDATA[
 			select  bo.no as no
@@ -171,21 +179,5 @@
 			ORDER BY bo.no desc
 		]]>
 	</select>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-
-
 
 </mapper>

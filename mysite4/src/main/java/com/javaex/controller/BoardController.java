@@ -28,7 +28,7 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 
-	// (검색X, 페이징X)
+	// (1-1)(검색X, 페이징X)
 	@RequestMapping(value = "/list", method = { RequestMethod.GET, RequestMethod.POST })
 	public String List(Model model) {
 		System.out.println("게시판 리스트");
@@ -37,7 +37,7 @@ public class BoardController {
 		return "board/list";
 	}
 
-	// (검색O, 페이징X)
+	// (1-2)(검색O, 페이징X)
 	@RequestMapping(value = "/search", method = { RequestMethod.GET, RequestMethod.POST })
 	public String boardSearch(@RequestParam("search") String search, Model model) {
 		System.out.println("게시판 글 검색");
@@ -46,64 +46,67 @@ public class BoardController {
 		return "board/list";
 	}
 
-	// (검색X, 페이징O)
+	// (1-3)(검색X, 페이징O)
 	@RequestMapping(value = "/list3", method = { RequestMethod.GET, RequestMethod.POST })
-	public String pagingList(@RequestParam(value="crtPage", required = false, defaultValue = "1") int crtPage ,Model model) {
+	public String pagingList(@RequestParam(value = "crtPage", required = false, defaultValue = "1") int crtPage,
+			Model model) {
 		System.out.println("페이징 게시판 리스트 0927");
 		System.out.println(crtPage);
-	
+
 		// service를 통해서 리스트를 가져온다
 		Map<String, Object> pMap = boardService.getBoardList3(crtPage);
 		System.out.println(pMap);
-		
+
 		model.addAttribute("pMap", pMap);
-		
+
 		return "board/list3";
 	}
-	
-	// (검색X, 페이징O)
-		@RequestMapping(value = "/list4", method = { RequestMethod.GET, RequestMethod.POST })
-		public String list4(@RequestParam(value="crtPage", required = false, defaultValue = "1") int crtPage
-						   ,@RequestParam(value="search", required = false, defaultValue = "") String search 
-						   ,Model model) {
-			System.out.println("페이징 게시판 리스트 list4");
-			System.out.println(crtPage);
-			System.out.println(search);
-		
-			// service를 통해서 리스트를 가져온다
-			Map<String, Object> pMap = boardService.getBoardList4(crtPage, search);
-			System.out.println(pMap);
-			
-			model.addAttribute("pMap", pMap);
-			
-			return "board/list4";
-		}
 
+	// (1-4)(검색O, 페이징O)
+	@RequestMapping(value = "/list4", method = { RequestMethod.GET, RequestMethod.POST })
+	public String list4(@RequestParam(value = "crtPage", required = false, defaultValue = "1") int crtPage,
+			@RequestParam(value = "search", required = false, defaultValue = "") String search, Model model) {
+		System.out.println("페이징 게시판 리스트 list4");
+		System.out.println(crtPage);
+		System.out.println(search);
+
+		// service를 통해서 리스트를 가져온다
+		Map<String, Object> pMap = boardService.getBoardList4(crtPage, search);
+		System.out.println(pMap);
+
+		model.addAttribute("pMap", pMap);
+
+		return "board/list4";
+	}
+
+	// (2-1) 게시판 작성폼
 	@RequestMapping(value = "/writeForm", method = { RequestMethod.GET, RequestMethod.POST })
 	public String writeForm() {
 		System.out.println("게시판 작성폼");
 		return "board/writeForm";
 	}
 
+	// (2-2) 게시판 등록
 	@RequestMapping(value = "/boardInsert", method = { RequestMethod.GET, RequestMethod.POST })
 	public String boardInsert(@ModelAttribute BoardVo boardVo, HttpSession session) {
 		System.out.println("게시판 등록");
 
-		// 임시
-		for (int i = 1; i <= 157; i++) {
-			UserVo authUser = (UserVo) session.getAttribute("authUser");
-			boardVo.setUserNo(authUser.getNo());
-			boardVo.setTitle(i + " 번째 글 제목");
-			boardVo.setContent(i + " 번째 글 내용");
-
-			boardDao.boardInsert(boardVo);
-
-		}
-
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		boardVo.setUserNo(authUser.getNo());
+		boardDao.boardInsert(boardVo);
+		
+		// 페이징테스트용 글등록
+//		for (int i = 1; i <= 157; i++) {
+//			UserVo authUser = (UserVo) session.getAttribute("authUser");
+//			boardVo.setUserNo(authUser.getNo());
+//			boardVo.setTitle(i + " 번째 글 제목");
+//			boardVo.setContent(i + " 번째 글 내용");
+//			boardDao.boardInsert(boardVo);
+//		}
 		return "redirect:list";
-
 	}
 
+	// (3) 게시판 읽기
 	@RequestMapping(value = "/read", method = { RequestMethod.GET, RequestMethod.POST })
 	public String boardRead(@RequestParam("no") int no, @RequestParam("hit") int hit, Model model) {
 		System.out.println("게시판 글읽기");
@@ -117,6 +120,7 @@ public class BoardController {
 		return "board/read";
 	}
 
+	// (4-1) 게시판 글 수정폼
 	@RequestMapping(value = "/modifyForm", method = { RequestMethod.GET, RequestMethod.POST })
 	public String modifyForm(@RequestParam("no") int no, Model model) {
 		System.out.println("게시판 글 수정폼");
@@ -125,6 +129,7 @@ public class BoardController {
 		return "board/modifyForm";
 	}
 
+	// (4-2) 게시판 글 수정
 	@RequestMapping(value = "/modify", method = { RequestMethod.GET, RequestMethod.POST })
 	public String modify(@ModelAttribute BoardVo boardVo) {
 		System.out.println("게시판 글 수정");
@@ -133,6 +138,7 @@ public class BoardController {
 		return "redirect:read?no=" + no + "&hit=0";
 	}
 
+	// (5) 게시판 글 삭제
 	@RequestMapping(value = "/delete", method = { RequestMethod.GET, RequestMethod.POST })
 	public String boardDelete(@ModelAttribute BoardVo boardVo) {
 		System.out.println("게시판 글 삭제");

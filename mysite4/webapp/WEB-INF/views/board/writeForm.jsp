@@ -21,9 +21,9 @@
 			<div id="aside">
 				<h2>게시판</h2>
 				<ul>
-					<li><a href="${pageContext.request.contextPath}/brc/list">일반게시판</a></li>
+					<li><a href="${pageContext.request.contextPath}/brc/list">일반게시판(검색)</a></li>
 					<li><a href="${pageContext.request.contextPath}/brc/list3">페이징게시판</a></li>
-					<li><a href="${pageContext.request.contextPath}/brc/list4">검색게시판</a></li>
+					<li><a href="${pageContext.request.contextPath}/brc/list4">페이징+검색게시판</a></li>
 					<li><a href="${pageContext.request.contextPath}/rbrc/list">댓글게시판</a></li>
 				</ul>
 			</div>
