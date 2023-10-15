@@ -24,48 +24,59 @@
     <input id="mapY" type="text" name="mapY"  value="">
 
     <script>
+    	
+    	// 보여지는 맵
         let map;
+    	// 처음 보여지는 마커
         let myLocationMarker;
-        let linePath = [];
+    	// 라인 배열
+    	let linePath = [];
+    	// 라인 옵션
         let lineOverlay;
+     	// 라인 옵션
         let watchId;
-        let isTracking = false;
+        // 버튼 설정
+        let isTracking = false;         
         
-     	// 위치 요청 옵션
-        const options = {
-          enableHighAccuracy: false,
-          maximumAge: 0,
-          timeout: Infinity
-        };
-
+     	
         // 처음 맵구현
         function initMap() {
           // 현재 위치 가져오기
-          navigator.geolocation.getCurrentPosition(success, error, options);
-        }
+        	navigator.geolocation.getCurrentPosition(success, error, options);             
 
+            // 시작버튼 클릭
+            $("#startButton").on("click", startTracking);
+            // 정지버튼 클릭
+            $("#stopButton").on("click", stopTracking);              
+        }     
+        
         // 가져오기 성공
         function success(position) {
-          const coords = position.coords;
-
-          myLocation = new naver.maps.LatLng(coords.latitude, coords.longitude)
-          console.log("현재 위치는 위도: " + coords.latitude + ", 경도: " + coords.longitude);
-
+          let lat = position.coords.latitude;
+          let log = position.coords.longitude;  
+          
+          let myLocation = new naver.maps.LatLng(lat, log); 
+          
+          console.log("현재 위치는 위도: " + lat + ", 경도: " + log);
+          
           map = new naver.maps.Map("map", {
             center: myLocation,
             zoom: 15
-          });          
+          });  
+          
+          mapRadius = new naver.maps.Circle({
+			 map : map,
+			 center : myLocation,
+			 radius : 30,
+			 fillColor : '#3CFBFF',
+			 fillOpacity : 0.5
+		  });
          
           myLocationMarker = new naver.maps.Marker({
               position: myLocation,
               map: map,              
               title: "내 위치"
-          });
-
-          // 시작버튼 클릭
-          $("#startButton").on("click", startTracking);
-          // 정지버튼 클릭
-          $("#stopButton").on("click", stopTracking);
+          });         
         }
 
         function error(error) {
@@ -73,88 +84,118 @@
           console.error("에러 메시지: " + error.message);
         }
         
-        
-       
+    	 // 위치 요청 옵션
+        const options = {
+          enableHighAccuracy: false,
+          maximumAge: 0,
+          timeout: Infinity
+        };    	
      	
-     	
-	
+        // navigator.geolocation.watchPosition() 위치정보가 변하면 현재위치정보를 지속적으로 업데이트하는 함수
+        // navigator.geolocation.getCurrentPosition() 현재위치정보를 업데이트하는 함수
+         	
         // 시작버튼 클릭 후 작동
         function startTracking() {
             if (!isTracking) {
                 isTracking = true;
                 $("#startButton").hide(); // 시작버튼 가리기
-                $("#stopButton").show(); // 정지버튼 보이기
-
-                // 네비게이션 기능으로 위치정보 받아오기
-                watchId = navigator.geolocation.watchPosition(updateMyLocation, handleError, { enableHighAccuracy: true, maximumAge: 0 });
+                $("#stopButton").show(); // 정지버튼 보이기                
                 
-                // 20초마다 위치 업데이트
-                setInterval(updateMyLocation, 20000);
+                console.log("시작버튼 클릭");
+                
+                // 네비게이션 기능으로 위치정보 받아오기 (10초마다 위치 업데이트)
+                updateMyLocation();
+                watchId = setInterval(updateMyLocation, 10000);                    
             }
         }
-
+             
         // 정지버튼 클릭 후 작동
         function stopTracking() {
             if (isTracking) {
                 isTracking = false;
                 $("#startButton").show();
                 $("#stopButton").hide();
+                
+                console.log("위치정보 받아오기 중단");    
 
                 // 위치정보 받아오기 중단
-                navigator.geolocation.clearWatch(watchId);
-            }
+                clearInterval(watchId);                            
+                console.log("그려진 라인 정보 : "+ linePath);
+            }           
         }
+        
+    	// 마커 아이콘을 생성
+        const mapIcon = {
+          content: '<div style="background-color: blue; width: 10px; height: 10px; border-radius: 50%;"></div>', // 빨간색 원 모양 아이콘
+          size: new naver.maps.Size(10, 10), // 아이콘 크기 설정
+          anchor: new naver.maps.Point(5, 5) // 아이콘 기준점 설정
+        };
 
-        // 현재 내정보
-        function updateMyLocation(position) {
-        	
-        	lat = position.coords.latitude;
-        	lag = position.coords.longitude;
-        	
-        	console.log("현재 위치는 : " + lat + ", " + lag);
-        	
-        	$("#mapX").val(lat);
-        	$("#mapY").val(lag);
-        	
-            const myLocation = new naver.maps.LatLng(lat, lag); 
-            if (myLocationMarker) {
-                myLocationMarker.setMap(null);
+        // 이동중 현재 위치정보
+        function updateMyLocation(position) {  
+        	if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+	        	
+	        	let lat = position.coords.latitude;
+	        	let log = position.coords.longitude;       	
+	        	
+	            let myLocation = new naver.maps.LatLng(lat, log); 
+	            
+				console.log("이동중 현재 위치는 : " + lat + ", " + log);
+	        	
+	        	$("#mapX").val(lat);
+	        	$("#mapY").val(log);
+	            
+	        	// 이동위치마커 표시할때 처음위치마커 지우기
+	            if (myLocationMarker) {
+	                myLocationMarker.setMap(null);
+	            }
+	            
+	            myLocationMarker = new naver.maps.Marker({
+	                position: myLocation,
+	                map: map,
+	                icon: mapIcon, // 빨간색 아이콘 설정
+	                title: "이동중 내 위치"
+	            });
+	            
+	       		// 이동위치마커 표시할때 반경 지우기
+	            if (mapRadius) {
+	            	mapRadius.setMap(null);
+	            }
+	       		
+	            mapRadius = new naver.maps.Circle({
+	   			 map : map,
+	   			 center : myLocation,
+	   			 radius : 30,
+	   			 fillColor : '#3CFBFF',
+	   			 fillOpacity : 0.5
+	   		    });
+	
+	            // 라인 그리기
+	            linePath.push(myLocation);
+	            if (lineOverlay) {
+	                lineOverlay.setMap(null);
+	            }
+	            
+	            // 라인 설정
+	            lineOverlay = new naver.maps.Polyline({
+	                map: map,
+	                path: linePath,
+	                strokeColor: "#FF0000",
+	                strokeWeight: 3
+	            });
+	
+	            map.setCenter(myLocation);
+                });
             }
-            myLocationMarker = new naver.maps.Marker({
-                position: myLocation,
-                map: map,
-                icon: redIcon, // 빨간색 아이콘 설정
-                title: "이동중 내 위치"
-            });
-
-            // 라인 그리기
-            linePath.push(myLocation);
-            if (lineOverlay) {
-                lineOverlay.setMap(null);
-            }
-            
-            // 라인 설정
-            lineOverlay = new naver.maps.Polyline({
-                map: map,
-                path: linePath,
-                strokeColor: "#FF0000",
-                strokeWeight: 3
-            });
-
-            map.setCenter(myLocation);
-        }
+         }
         
 
         function handleError(error) {
             console.error("위치 정보 가져오기 실패: " + error.message);
         }
         
-     	// 빨간색 마커 아이콘을 생성
-        var redIcon = {
-          content: '<div style="background-color: red; width: 20px; height: 20px; border-radius: 50%;"></div>', // 빨간색 원 모양 아이콘
-          size: new naver.maps.Size(10, 10), // 아이콘 크기 설정
-          anchor: new naver.maps.Point(5, 5) // 아이콘 기준점 설정
-        };
+     	
         
         
     </script>

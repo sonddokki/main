@@ -20,7 +20,7 @@ public class MapController {
 		System.out.println("현재 내 위치");
 		// 내 실시간위치 기록해보기
 		
-		return "map/map6";
+		return "map/index";
 	}	
 	
 	@RequestMapping(value = "/map3", method = { RequestMethod.GET, RequestMethod.POST })
