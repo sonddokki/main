@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="rboard">
+
+	<!-- 리스트 가져오기  -->
+	<select id="boardSelect" parameterType="String" resultType="com.javaex.vo.BoardVo">
+		<![CDATA[
+            SELECT rn2.*
+			FROM (SELECT rn.*, ROWNUM rown
+			      FROM  (select  bo.no as no
+			            ,LPAD(' ',bo.depth+1,'↳')|| bo.title as title
+			            ,bo.content as content
+			            ,bo.hit as hit
+			            ,bo.reg_date as regDate
+			            ,us.name as name
+			            ,us.no as userNo
+			     FROM rboard bo, users us
+			     where bo.user_no = us.no
+			     and bo.title LIKE '%'||#{keyword}||'%'
+			     ORDER BY bo.group_no desc
+			             ,bo.order_no asc) rn) rn2
+			WHERE rown BETWEEN 1 AND 6
+			]]>
+	</select>
+
+	<!-- 글 하나 가져오기  -->
+	<select id="boardRead" parameterType="int"
+		resultType="com.javaex.vo.BoardVo">
+		<![CDATA[
+			select  bo.no as no
+				    ,bo.title as title
+					,bo.content as content
+					,bo.hit as hit
+					,bo.reg_date as regDate
+					,us.name as name
+					,us.no as userNo
+					,bo.group_no as groupNo
+					,bo.order_no as orderNo
+					,bo.depth
+			FROM rboard bo, users us
+			where bo.user_no = us.no
+			and bo.no = #{int}
+		]]>
+	</select>
+
+	<!-- 조회수 상승  -->
+	<update id="hitUp" parameterType="int"> 
+		<![CDATA[
+			UPDATE rboard
+			set hit = hit+1
+			where no = #{int}
+		]]>
+	</update>
+
+	<!-- 글 등록  -->
+	<insert id="boardInsert" parameterType="com.javaex.vo.BoardVo">  
+		 <![CDATA[
+	     INSERT INTO rboard 
+	     VALUES ( seq_board_no.nextval
+	             ,#{title}
+	             ,#{content}
+	             , 0
+	             ,SYSDATE
+	             ,#{userNo} 
+	             ,seq_board_no.nextval
+	             ,1
+	             ,0 )
+		 ]]>
+	</insert>
+	
+	<!-- 댓글 등록  -->
+	<insert id="rboardInsert" parameterType="com.javaex.vo.BoardVo">  
+		 <![CDATA[
+	     INSERT INTO rboard 
+	     VALUES ( seq_board_no.nextval
+	             ,#{title}
+	             ,#{content}
+	             , 0
+	             ,SYSDATE
+	             ,#{userNo} 
+	             ,#{groupNo} 
+	             ,#{orderNo}+1
+	             ,#{depth}+1 )
+		 ]]>
+	</insert>
+	
+	<!-- 그룹의 다른 댓글들 순서 조정  -->
+	<update id="updateRboard" parameterType="com.javaex.vo.BoardVo"> 
+		<![CDATA[
+			UPDATE rboard
+			set order_no = order_no+1
+			where group_no = #{groupNo} 
+			and order_no > #{orderNo} 
+		]]>
+	</update>
+		
+	<!-- 수정  -->
+	<update id="updateBoard" parameterType="com.javaex.vo.BoardVo"> 
+		<![CDATA[
+			UPDATE rboard
+			set title = #{title}
+			    ,content = #{content}
+			where user_no = #{userNo}
+			and no = #{no}
+		]]>
+	</update>
+	
+	<!-- 글 삭제 (이 글만 삭제하고 삭제된 게시물입니다라고 변경 사실상 업데이트 개념)  -->
+	<delete id="deleteBoard" parameterType="com.javaex.vo.BoardVo">
+		<![CDATA[
+			UPDATE rboard
+			set title = '삭제된 게시물 입니다.'
+			    ,content = '내용없음'
+			    
+			where user_no = #{userNo}
+			and no = #{no}	
+		]]>
+	</delete>
+	
+	<!-- 글 삭제 (이 그룹 전체 삭제)  -->
+	<delete id="deleteBoard2" parameterType="com.javaex.vo.BoardVo">
+		<![CDATA[
+			DELETE from rboard
+			where user_no = #{userNo}
+			and no = #{no}
+		]]>
+	</delete>	
+
+</mapper>
