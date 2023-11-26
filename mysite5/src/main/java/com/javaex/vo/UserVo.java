@@ -27,7 +27,7 @@ public class UserVo {
 		this.gender = gender;
 	}
 
-	// 메소드 gs
+	// 메소드 getters setters
 	public String getId() {
 		return id;
 	}
